@@ -62,6 +62,5 @@ namespace PokemonBackend.Controllers
 
             return Ok(rating);
         } 
-
     }
 }
