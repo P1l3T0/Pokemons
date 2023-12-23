@@ -1,4 +1,6 @@
-﻿namespace PokemonBackend.Dto
+﻿using PokemonBackend.Models;
+
+namespace PokemonBackend.Dto
 {
     public class ReviewDto
     {

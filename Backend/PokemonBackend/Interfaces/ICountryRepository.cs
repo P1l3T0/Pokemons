@@ -9,5 +9,7 @@ namespace PokemonBackend.Interfaces
         Country GetCountryByOwner(int ownerId);
         ICollection<Country> GetCountries();
         ICollection<Owner> GetOwnersFromCountry(int countryId);
+        bool CreateCountry(Country country);
+        bool Save();
     }
 }

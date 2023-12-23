@@ -5,7 +5,7 @@ using PokemonBackend.Models;
 
 namespace PokemonBackend.Repositories
 {
-    public class ReviewRepository : IReviewRepository   
+    public class ReviewRepository : IReviewRepository
     {
         private readonly DataContext _context;
         private readonly IMapper _mapper;
@@ -38,6 +38,19 @@ namespace PokemonBackend.Repositories
             return _context.Reviews
                 .Where(r => r.Pokemon!.Id == pokeId)
                 .ToList();
+        }
+
+        public bool CreateReview(Review review)
+        {
+            _context.Add(review);
+
+            return Save();
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0;
         }
     }
 }

@@ -45,5 +45,18 @@ namespace PokemonBackend.Repositories
                 .Select(p => p.Pokemon)
                 .ToList()!;
         }
+
+        public bool CreateOwner(Owner owner)
+        {
+            _context.Add(owner);
+
+            return Save();
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0;
+        }
     }
 }

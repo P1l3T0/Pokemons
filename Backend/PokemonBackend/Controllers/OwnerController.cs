@@ -11,13 +11,15 @@ namespace PokemonBackend.Controllers
     [ApiController]
     public class OwnerController : Controller
     {
-        private readonly IOwnerRepository _ownerRepository;
         private readonly IMapper _mapper;
+        private readonly IOwnerRepository _ownerRepository;
+        private readonly ICountryRepository _countryRepository;
 
-        public OwnerController(IOwnerRepository ownerRepository, IMapper mapper)
+        public OwnerController(IOwnerRepository ownerRepository, IMapper mapper, ICountryRepository countryRepository)
         {
-            _ownerRepository = ownerRepository;
             _mapper = mapper;
+            _ownerRepository = ownerRepository;
+            _countryRepository = countryRepository;
         }
 
         [HttpGet]
@@ -62,6 +64,40 @@ namespace PokemonBackend.Controllers
                 return BadRequest(ModelState);
 
             return Ok(owner);
+        }
+
+        [HttpPost]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        public IActionResult CreateOwner([FromQuery] int countryId, [FromBody] OwnerDto ownerCreate)
+        {
+            if (ownerCreate == null)
+                return BadRequest();
+
+            var ownerDuplicate = _ownerRepository
+                .GetOwners()
+                .Where(o => o.LastName!.Trim().ToLower().Equals(ownerCreate.LastName!.Trim().ToLower(), StringComparison.CurrentCultureIgnoreCase))
+                .FirstOrDefault();
+
+            if (ownerDuplicate != null)
+            {
+                ModelState.AddModelError("", "Owner already exists");
+                return StatusCode(422, ModelState);
+            }
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var ownerMap = _mapper.Map<Owner>(ownerCreate);
+            ownerMap.Country = _countryRepository.GetCountry(countryId);
+
+            if (!_ownerRepository.CreateOwner(ownerMap))
+            {
+                ModelState.AddModelError("", "Something went wrong while saving");
+                return StatusCode(500, ModelState);
+            }
+
+            return Ok("Succesfully created!");
         }
     }
 }

@@ -37,5 +37,18 @@ namespace PokemonBackend.Repositories
                 .Select(c => c.Pokemon)
                 .ToList()!;
         }
+
+        public bool CreateCategory(Category category)
+        {
+            _context.Add(category);
+
+            return Save();
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0;
+        }
     }
 }

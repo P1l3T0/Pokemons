@@ -59,5 +59,38 @@ namespace PokemonBackend.Controllers
 
             return Ok(pokemon);
         }
+
+        [HttpPost]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        public IActionResult CreateCategory([FromBody] CategoryDto categoryCreate)
+        {
+            if (categoryCreate == null)
+                return BadRequest();
+
+            var category = _categoryRepository
+                .GetCategories()
+                .Where(c => c.Name!.Trim().ToLower().Equals(categoryCreate.Name!.Trim().ToLower(), StringComparison.CurrentCultureIgnoreCase))
+                .FirstOrDefault();
+
+            if (category != null)
+            {
+                ModelState.AddModelError("", "Category already exists");
+                return StatusCode(422, ModelState);
+            }
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var categoryMap = _mapper.Map<Category>(categoryCreate);
+
+            if (!_categoryRepository.CreateCategory(categoryMap))
+            {
+                ModelState.AddModelError("", "Something went wrong while saving");
+                return StatusCode(500, ModelState);
+            }
+
+            return Ok("Succesfully created!");
+        }
     }
 }
