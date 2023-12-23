@@ -4,10 +4,10 @@ namespace PokemonBackend.Interfaces
 {
     public interface IPokemonRepository
     {
-        ICollection<Pokemon> GetPokemons();
+        bool PokemonExists (int pokeId);
+        decimal GetPokemonRating(int pokeId);
         Pokemon GetPokemon(int id);
         Pokemon GetPokemon(string name);
-        decimal GetPokemonRating(int pokeId);
-        bool PokemonExists (int pokeId);
+        ICollection<Pokemon> GetPokemons();
     }
 }

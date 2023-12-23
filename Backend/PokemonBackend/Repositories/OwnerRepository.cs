@@ -6,21 +6,26 @@ namespace PokemonBackend.Repositories
 {
     public class OwnerRepository : IOwnerRepository
     {
-        private DataContext _context;
+        private readonly DataContext _context;
 
         public OwnerRepository(DataContext context)
         {
             _context = context;
         }
 
+        public bool OwnerExists(int ownerId)
+        {
+            return _context.Owners.Any(o => o.Id == ownerId);
+        }
+
         public Owner GetOwner(int ownerId)
         {
-            return _context.Owners.Where(o => o.Id == ownerId).FirstOrDefault();
+            return _context.Owners.Where(o => o.Id == ownerId).FirstOrDefault()!;
         }
 
         public ICollection<Owner> GetOwnerOfPokemon(int pokeId)
         {
-            return _context.PokemonOwners.Where(p => p.Pokemon.Id == pokeId).Select(o => o.Owner).ToList();
+            return _context.PokemonOwners.Where(p => p.Pokemon!.Id == pokeId)!.Select(o => o.Owner).ToList()!;
         }
 
         public ICollection<Owner> GetOwners()
@@ -30,12 +35,7 @@ namespace PokemonBackend.Repositories
 
         public ICollection<Pokemon> GetPokemonByOwner(int ownerId)
         {
-            return _context.PokemonOwners.Where(p => p.Pokemon.Id == ownerId).Select(p => p.Pokemon).ToList();
-        }
-
-        public bool OwnerExists(int ownerId)
-        {
-            return _context.Owners.Any(o => o.Id == ownerId);
+            return _context.PokemonOwners.Where(p => p.Pokemon!.Id == ownerId).Select(p => p.Pokemon).ToList()!;
         }
     }
 }
