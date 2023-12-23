@@ -20,7 +20,9 @@ namespace PokemonBackend.Repositories
 
         public Category GetCategory(int id)
         {
-            return _context.Categories.Where(c => c.Id == id).FirstOrDefault()!;
+            return _context.Categories
+                .Where(c => c.Id == id)
+                .FirstOrDefault()!;
         }
 
         public ICollection<Category> GetCategories()
@@ -30,7 +32,10 @@ namespace PokemonBackend.Repositories
 
         public ICollection<Pokemon> GetPokemonByCategory(int categoryId)
         {
-            return _context.PokemonCategories.Where(c => c.CategoryId == categoryId).Select(c => c.Pokemon).ToList()!;
+            return _context.PokemonCategories
+                .Where(c => c.CategoryId == categoryId)
+                .Select(c => c.Pokemon)
+                .ToList()!;
         }
     }
 }

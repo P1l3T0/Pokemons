@@ -28,12 +28,16 @@ namespace PokemonBackend.Repositories
 
         public Review GetReview(int reviewId)
         {
-            return _context.Reviews.Where(r => r.Id == reviewId).FirstOrDefault()!;
+            return _context.Reviews
+                .Where(r => r.Id == reviewId)
+                .FirstOrDefault()!;
         }
 
         public ICollection<Review> GetReviewsForPokemon(int pokeId)
         {
-            return _context.Reviews.Where(r => r.Pokemon!.Id == pokeId).ToList();
+            return _context.Reviews
+                .Where(r => r.Pokemon!.Id == pokeId)
+                .ToList();
         }
     }
 }

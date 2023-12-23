@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using PokemonBackend.Dto;
 using PokemonBackend.Interfaces;
 using PokemonBackend.Models;
-using PokemonBackend.Repositories;
 
 namespace PokemonBackend.Controllers
 {

@@ -12,6 +12,7 @@ namespace PokemonBackend.Helper
             CreateMap<Category, CategoryDto>();
             CreateMap<Country, CountryDto>();
             CreateMap<Review, ReviewDto>();
+            CreateMap<Reviewer, ReviewerDto>();
         }
     }
 }

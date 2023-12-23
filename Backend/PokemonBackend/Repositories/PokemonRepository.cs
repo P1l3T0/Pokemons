@@ -30,17 +30,23 @@ namespace PokemonBackend.Repositories
 
         public Pokemon GetPokemon(int id)
         {
-            return _context.Pokemon.Where(p => p.Id == id).FirstOrDefault()!;
+            return _context.Pokemon
+                .Where(p => p.Id == id)
+                .FirstOrDefault()!;
         }
 
         public Pokemon GetPokemon(string name)
         {
-            return _context.Pokemon.Where(p => p.Name == name).FirstOrDefault()!;
+            return _context.Pokemon
+                .Where(p => p.Name == name)
+                .FirstOrDefault()!;
         }
 
         public ICollection<Pokemon> GetPokemons()
         {
-            return _context.Pokemon.OrderBy(p => p.Id).ToList();
+            return _context.Pokemon
+                .OrderBy(p => p.Id)
+                .ToList();
         }
     }
 }

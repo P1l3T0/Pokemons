@@ -23,12 +23,17 @@ namespace PokemonBackend.Repositories
 
         public Country GetCountry(int id)
         {
-            return _context.Countries.Where(c => c.Id == id).FirstOrDefault()!;
+            return _context.Countries
+                .Where(c => c.Id == id)
+                .FirstOrDefault()!;
         }
 
         public Country GetCountryByOwner(int ownerId)
         {
-            return _context.Owners.Where(o => o.Id == ownerId).Select(c => c.Country).FirstOrDefault()!;
+            return _context.Owners
+                .Where(o => o.Id == ownerId)
+                .Select(c => c.Country)
+                .FirstOrDefault()!;
         }
 
         public ICollection<Country> GetCountries()
@@ -38,7 +43,9 @@ namespace PokemonBackend.Repositories
 
         public ICollection<Owner> GetOwnersFromCountry(int countryId)
         {
-            return _context.Owners.Where(c => c.Country!.Id == countryId).ToList();
+            return _context.Owners
+                .Where(c => c.Country!.Id == countryId)
+                .ToList();
         }
     }
 }
