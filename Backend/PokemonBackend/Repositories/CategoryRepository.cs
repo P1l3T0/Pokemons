@@ -4,11 +4,11 @@ using PokemonBackend.Models;
 
 namespace PokemonBackend.Repositories
 {
-    public class CategoryRepository : ICategoryRepository
+    public class CategoryRepository : BaseRepository, ICategoryRepository
     {
         private readonly DataContext _context;
 
-        public CategoryRepository(DataContext context)
+        public CategoryRepository(DataContext context) : base(context)
         {
             _context = context;
         }
@@ -43,12 +43,6 @@ namespace PokemonBackend.Repositories
             _context.Add(category);
 
             return Save();
-        }
-
-        public bool Save()
-        {
-            var saved = _context.SaveChanges();
-            return saved > 0;
         }
     }
 }

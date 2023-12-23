@@ -1,19 +1,16 @@
-﻿using AutoMapper;
-using PokemonBackend.Data;
+﻿using PokemonBackend.Data;
 using PokemonBackend.Interfaces;
 using PokemonBackend.Models;
 
 namespace PokemonBackend.Repositories
 {
-    public class ReviewRepository : IReviewRepository
+    public class ReviewRepository : BaseRepository, IReviewRepository
     {
         private readonly DataContext _context;
-        private readonly IMapper _mapper;
 
-        public ReviewRepository(DataContext context, IMapper mapper)
+        public ReviewRepository(DataContext context) : base(context)
         {
             _context = context;
-            _mapper = mapper;
         }
 
         public bool ReviewExists(int reviewId)
@@ -45,12 +42,6 @@ namespace PokemonBackend.Repositories
             _context.Add(review);
 
             return Save();
-        }
-
-        public bool Save()
-        {
-            var saved = _context.SaveChanges();
-            return saved > 0;
         }
     }
 }

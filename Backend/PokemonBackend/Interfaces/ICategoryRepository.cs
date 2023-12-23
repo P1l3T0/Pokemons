@@ -2,13 +2,12 @@
 
 namespace PokemonBackend.Interfaces
 {
-    public interface ICategoryRepository
+    public interface ICategoryRepository : IBaseRepository
     {
         bool CategoryExists(int id);
         Category GetCategory(int id);
         ICollection<Category> GetCategories();
         ICollection<Pokemon> GetPokemonByCategory(int categoryId);
         bool CreateCategory(Category category);
-        bool Save();
     }
 }

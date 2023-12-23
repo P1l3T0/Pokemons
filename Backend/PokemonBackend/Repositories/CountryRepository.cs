@@ -1,19 +1,16 @@
-﻿using AutoMapper;
-using PokemonBackend.Data;
+﻿using PokemonBackend.Data;
 using PokemonBackend.Interfaces;
 using PokemonBackend.Models;
 
 namespace PokemonBackend.Repositories
 {
-    public class CountryRepository : ICountryRepository
+    public class CountryRepository : BaseRepository, ICountryRepository
     {
         private readonly DataContext _context;
-        private readonly IMapper _mapper;
 
-        public CountryRepository(DataContext context, IMapper mapper)
+        public CountryRepository(DataContext context) : base(context)
         {
             _context = context;
-            _mapper = mapper;
         }
 
         public bool CountryExists(int id)
@@ -53,12 +50,6 @@ namespace PokemonBackend.Repositories
             _context.Add(country);
 
             return Save();
-        }
-
-        public bool Save()
-        {
-            var saved = _context.SaveChanges();
-            return saved > 0;
         }
     }
 }

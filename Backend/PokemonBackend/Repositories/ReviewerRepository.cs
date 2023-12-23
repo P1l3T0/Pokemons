@@ -5,11 +5,11 @@ using PokemonBackend.Models;
 
 namespace PokemonBackend.Repositories
 {
-    public class ReviewerRepository : IReviewerRepository
+    public class ReviewerRepository : BaseRepository, IReviewerRepository
     {
         private readonly DataContext _context;
 
-        public ReviewerRepository(DataContext context)
+        public ReviewerRepository(DataContext context) : base(context)
         {
             _context = context;
         }
@@ -44,12 +44,6 @@ namespace PokemonBackend.Repositories
             _context.Add(reviewer);
 
             return Save();  
-        }
-
-        public bool Save()
-        {
-            var saved = _context.SaveChanges();
-            return saved > 0;
         }
     }
 }

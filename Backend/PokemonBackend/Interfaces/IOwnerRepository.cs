@@ -2,7 +2,7 @@
 
 namespace PokemonBackend.Interfaces
 {
-    public interface IOwnerRepository
+    public interface IOwnerRepository : IBaseRepository
     {
         bool OwnerExists(int ownerId);
         Owner GetOwner(int ownerId);
@@ -10,6 +10,5 @@ namespace PokemonBackend.Interfaces
         ICollection<Owner> GetOwnerOfPokemon(int pokeId);
         ICollection<Pokemon> GetPokemonByOwner(int ownerId);
         bool CreateOwner(Owner owner);
-        bool Save();
     }
 }

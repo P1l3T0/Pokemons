@@ -2,7 +2,7 @@
 
 namespace PokemonBackend.Interfaces
 {
-    public interface ICountryRepository
+    public interface ICountryRepository : IBaseRepository
     {
         bool CountryExists(int id);
         Country GetCountry(int id);
@@ -10,6 +10,5 @@ namespace PokemonBackend.Interfaces
         ICollection<Country> GetCountries();
         ICollection<Owner> GetOwnersFromCountry(int countryId);
         bool CreateCountry(Country country);
-        bool Save();
     }
 }
