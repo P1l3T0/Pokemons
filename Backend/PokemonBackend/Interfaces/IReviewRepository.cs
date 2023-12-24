@@ -9,5 +9,6 @@ namespace PokemonBackend.Interfaces
         ICollection<Review> GetReviews();
         ICollection<Review> GetReviewsForPokemon(int pokeId);
         bool CreateReview(Review review);
+        bool UpdateReview(Review review);
     }
 }

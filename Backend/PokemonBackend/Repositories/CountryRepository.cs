@@ -51,5 +51,12 @@ namespace PokemonBackend.Repositories
 
             return Save();
         }
+
+        public bool UpdateCountry(Country country)
+        {
+            _context.Update(country);
+
+            return Save();
+        }
     }
 }

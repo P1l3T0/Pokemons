@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PokemonBackend.Dto;
 using PokemonBackend.Interfaces;
 using PokemonBackend.Models;
+using PokemonBackend.Repositories;
 
 namespace PokemonBackend.Controllers
 {
@@ -95,6 +96,29 @@ namespace PokemonBackend.Controllers
             }
 
             return Ok("Succesfully created!");
+        }
+
+        [HttpPut("{reviewerId}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        public IActionResult UpdateCategory(int reviewerId, [FromBody] ReviewerDto updatedReviewer)
+        {
+            if (updatedReviewer == null || reviewerId != updatedReviewer.Id)
+                return BadRequest(ModelState);
+
+            if (!_reviewerRepository.ReviewerExists(reviewerId))
+                return NotFound();
+
+            var reviewerMap = _mapper.Map<Reviewer>(updatedReviewer);
+
+            if (!_reviewerRepository.UpdateReviewer(reviewerMap))
+            {
+                ModelState.AddModelError("", "Something went wrong while updating");
+                return StatusCode(500, ModelState);
+            }
+
+            return NoContent();
         }
     }
 }

@@ -9,5 +9,6 @@ namespace PokemonBackend.Interfaces
         ICollection<Category> GetCategories();
         ICollection<Pokemon> GetPokemonByCategory(int categoryId);
         bool CreateCategory(Category category);
+        bool UpdateCategory(Category category);
     }
 }

@@ -10,5 +10,6 @@ namespace PokemonBackend.Interfaces
         Pokemon GetPokemon(string name);
         ICollection<Pokemon> GetPokemons();
         bool CreatePokemon(int ownerId, int categoryId, Pokemon pokemon);
+        bool UpdatePokemon(int ownerId, int categoryId, Pokemon pokemon);
     }
 }

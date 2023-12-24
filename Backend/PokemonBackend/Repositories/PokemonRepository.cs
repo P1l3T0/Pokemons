@@ -79,5 +79,12 @@ namespace PokemonBackend.Repositories
 
             return Save();
         }
+
+        public bool UpdatePokemon(int ownerId, int categoryId, Pokemon pokemon)
+        {
+            _context.Update(pokemon);
+
+            return Save();
+        }
     }
 }

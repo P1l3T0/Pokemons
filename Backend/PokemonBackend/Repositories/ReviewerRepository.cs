@@ -45,5 +45,12 @@ namespace PokemonBackend.Repositories
 
             return Save();  
         }
+
+        public bool UpdateReviewer(Reviewer reviewer)
+        {
+            _context.Update(reviewer);
+
+            return Save();
+        }
     }
 }
