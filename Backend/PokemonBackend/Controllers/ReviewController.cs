@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PokemonBackend.Dto;
 using PokemonBackend.Interfaces;
 using PokemonBackend.Models;
+using PokemonBackend.Repositories;
 
 namespace PokemonBackend.Controllers
 {
@@ -92,7 +93,7 @@ namespace PokemonBackend.Controllers
 
             var reviewMap = _mapper.Map<Review>(reviewCreate);
 
-            reviewMap.Pokemon = _pokeRepository.GetPokemon(pokemonId);
+            reviewMap.Pokemon = _pokeRepository.GetById(pokemonId);
             reviewMap.Reviewer = _reviewerRepository.GetById(reviewerId);
 
             if (!_reviewRepository.Create(reviewMap))
@@ -123,6 +124,26 @@ namespace PokemonBackend.Controllers
                 ModelState.AddModelError("", "Something went wrong while updating");
                 return StatusCode(500, ModelState);
             }
+
+            return NoContent();
+        }
+
+        [HttpDelete("{reviewId}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        public IActionResult DeleteReview(int reviewId)
+        {
+            if (!_reviewRepository.Exists(reviewId))
+                return NotFound(ModelState);
+
+            var reviewToDelete = _reviewRepository.GetById(reviewId);
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if (!_reviewRepository.Delete(reviewToDelete))
+                ModelState.AddModelError("", "Something went wrong while deleting!");
 
             return NoContent();
         }

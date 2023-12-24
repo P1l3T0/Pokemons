@@ -11,12 +11,14 @@ namespace PokemonBackend.Controllers
     public class CountryController : Controller 
     {
         private readonly IMapper _mapper;
+        private readonly IOwnerRepository _ownerRepository;
         private readonly ICountryRepository _countryRepository;
 
-        public CountryController(ICountryRepository countryRepository, IMapper mapper)
+        public CountryController(ICountryRepository countryRepository, IMapper mapper, IOwnerRepository ownerRepository)
         {
             _mapper = mapper;
             _countryRepository = countryRepository;
+            _ownerRepository = ownerRepository;
         }
 
         [HttpGet]
@@ -112,6 +114,30 @@ namespace PokemonBackend.Controllers
                 ModelState.AddModelError("", "Something went wrong while updating");
                 return StatusCode(500, ModelState);
             }
+
+            return NoContent();
+        }
+
+        [HttpDelete("{countryId}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        public IActionResult DeleteCountry(int countryId)
+        {
+            if (!_countryRepository.Exists(countryId))
+                return NotFound(ModelState);
+
+            var ownersToDelete = _countryRepository.GetOwnersFromCountry(countryId);
+            var countryToDelete = _countryRepository.GetById(countryId);
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if (!_ownerRepository.DeleteOwners(ownersToDelete))
+                ModelState.AddModelError("", "Something went wrong while deleting owners!");
+
+            if (!_countryRepository.Delete(countryToDelete))
+                ModelState.AddModelError("", "Something went wrong while deleting!");
 
             return NoContent();
         }

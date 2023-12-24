@@ -13,7 +13,7 @@ namespace PokemonBackend.Repositories
             _context = context;
         }
 
-        public bool PokemonExists(int pokeId)
+        public bool Exists(int pokeId)
         {
             return _context.Pokemon.Any(p => p.Id == pokeId);
         }
@@ -28,7 +28,7 @@ namespace PokemonBackend.Repositories
             return ((decimal)review.Sum(r => r.Rating)) / review.Count();
         }
 
-        public Pokemon GetPokemon(int id)
+        public Pokemon GetById(int id)
         {
             return _context.Pokemon
                 .Where(p => p.Id == id)
@@ -42,14 +42,14 @@ namespace PokemonBackend.Repositories
                 .FirstOrDefault()!;
         }
 
-        public ICollection<Pokemon> GetPokemons()
+        public ICollection<Pokemon> GetAll()
         {
             return _context.Pokemon
                 .OrderBy(p => p.Id)
                 .ToList();
         }
 
-        public bool CreatePokemon(int ownerId, int categoryId, Pokemon pokemon)
+        public bool Create(int ownerId, int categoryId, Pokemon pokemon)
         {
             var pokemonOwnerEntity = _context.Owners
                 .Where(o => o.Id == ownerId)
@@ -80,9 +80,16 @@ namespace PokemonBackend.Repositories
             return Save();
         }
 
-        public bool UpdatePokemon(int ownerId, int categoryId, Pokemon pokemon)
+        public bool Update(int ownerId, int categoryId, Pokemon pokemon)
         {
             _context.Update(pokemon);
+
+            return Save();
+        }
+
+        public bool Delete(Pokemon pokemon)
+        {
+            _context.Remove(pokemon);
 
             return Save();
         }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PokemonBackend.Dto;
 using PokemonBackend.Interfaces;
 using PokemonBackend.Models;
+using PokemonBackend.Repositories;
 
 namespace PokemonBackend.Controllers
 {
@@ -116,6 +117,26 @@ namespace PokemonBackend.Controllers
                 ModelState.AddModelError("", "Something went wrong while updating");
                 return StatusCode(500, ModelState);
             }
+
+            return NoContent();
+        }
+
+        [HttpDelete("{reviewerId}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        public IActionResult DeleteReview(int reviewerId)
+        {
+            if (!_reviewerRepository.Exists(reviewerId))
+                return NotFound(ModelState);
+
+            var reviewerToDelete = _reviewerRepository.GetById(reviewerId);
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if (!_reviewerRepository.Delete(reviewerToDelete))
+                ModelState.AddModelError("", "Something went wrong while deleting!");
 
             return NoContent();
         }

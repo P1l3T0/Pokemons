@@ -4,7 +4,7 @@ using PokemonBackend.Models;
 
 namespace PokemonBackend.Repositories
 {
-    public class CountryRepository :  SaveRepository, ICountryRepository
+    public class CountryRepository : SaveRepository, ICountryRepository
     {
         private readonly DataContext _context;
 
@@ -18,11 +18,6 @@ namespace PokemonBackend.Repositories
             return _context.Countries.Any(c => c.Id == countryId);
         }
 
-        public bool Delete(int countryId)
-        {
-            throw new NotImplementedException();
-        }
-
         public bool Create(Country country)
         {
             _context.Add(country);
@@ -33,6 +28,13 @@ namespace PokemonBackend.Repositories
         public bool Update(Country country)
         {
             _context.Update(country);
+
+            return Save();
+        }
+
+        public bool Delete(Country country)
+        {
+            _context.Remove(country);
 
             return Save();
         }

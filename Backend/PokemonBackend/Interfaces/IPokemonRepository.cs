@@ -4,12 +4,13 @@ namespace PokemonBackend.Interfaces
 {
     public interface IPokemonRepository
     {
-        bool PokemonExists (int pokeId);
+        bool Exists (int pokeId);
+        bool Create(int ownerId, int categoryId, Pokemon pokemon);
+        bool Update(int ownerId, int categoryId, Pokemon pokemon);
+        bool Delete(Pokemon pokemon);
         decimal GetPokemonRating(int pokeId);
-        Pokemon GetPokemon(int id);
+        Pokemon GetById(int id);
         Pokemon GetPokemon(string name);
-        ICollection<Pokemon> GetPokemons();
-        bool CreatePokemon(int ownerId, int categoryId, Pokemon pokemon);
-        bool UpdatePokemon(int ownerId, int categoryId, Pokemon pokemon);
+        ICollection<Pokemon> GetAll();
     }
 }

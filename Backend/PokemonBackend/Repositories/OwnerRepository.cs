@@ -18,11 +18,6 @@ namespace PokemonBackend.Repositories
             return _context.Owners.Any(o => o.Id == ownerId);
         }
 
-        public bool Delete(int ownerId)
-        {
-            throw new NotImplementedException();
-        }
-
         public bool Create(Owner owner)
         {
             _context.Add(owner);
@@ -33,6 +28,20 @@ namespace PokemonBackend.Repositories
         public bool Update(Owner owner)
         {
             _context.Update(owner);
+
+            return Save();
+        }
+
+        public bool Delete(Owner owner)
+        {
+            _context.Remove(owner);
+
+            return Save();
+        }
+
+        public bool DeleteOwners(ICollection<Owner> owners)
+        {
+            _context.RemoveRange(owners);
 
             return Save();
         }

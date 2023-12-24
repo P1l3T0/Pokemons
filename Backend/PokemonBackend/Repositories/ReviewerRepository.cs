@@ -19,11 +19,6 @@ namespace PokemonBackend.Repositories
             return _context.Revieweres.Any(r => r.Id == reviewerId);
         }
 
-        public bool Delete(int reviewerId)
-        {
-            throw new NotImplementedException();
-        }
-
         public bool Create(Reviewer reviewer)
         {
             _context.Add(reviewer);
@@ -34,6 +29,13 @@ namespace PokemonBackend.Repositories
         public bool Update(Reviewer reviewer)
         {
             _context.Update(reviewer);
+
+            return Save();
+        }
+
+        public bool Delete(Reviewer reviewer)
+        {
+            _context.Remove(reviewer);
 
             return Save();
         }

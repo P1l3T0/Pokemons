@@ -115,5 +115,25 @@ namespace PokemonBackend.Controllers
 
             return NoContent();
         }
+
+        [HttpDelete("{categoryId}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        public IActionResult DeleteCategory(int categoryId)
+        {
+            if (!_categoryRepository.Exists(categoryId)) 
+                return NotFound(ModelState);
+
+            var categoryToDelete = _categoryRepository.GetById(categoryId);
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if (!_categoryRepository.Delete(categoryToDelete))
+                ModelState.AddModelError("", "Something went wrong while deleting!");
+
+            return NoContent();
+        }
     }
 }

@@ -121,5 +121,25 @@ namespace PokemonBackend.Controllers
 
             return NoContent();
         }
+
+        [HttpDelete("{ownerId}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        public IActionResult DeleteOwner(int ownerId)
+        {
+            if (!_ownerRepository.Exists(ownerId))
+                return NotFound(ModelState);
+
+            var ownerToDelete = _ownerRepository.GetById(ownerId);
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if (!_ownerRepository.Delete(ownerToDelete))
+                ModelState.AddModelError("", "Something went wrong while deleting!");
+
+            return NoContent();
+        }
     }
 }

@@ -18,11 +18,6 @@ namespace PokemonBackend.Repositories
             return _context.Categories.Any(c => c.Id == categoryId);
         }
 
-        public bool Delete(int categoryId)
-        {
-            throw new NotImplementedException();
-        }
-
         public bool Create(Category category)
         {
             _context.Add(category);
@@ -33,6 +28,13 @@ namespace PokemonBackend.Repositories
         public bool Update(Category category)
         {
             _context.Update(category);
+
+            return Save();
+        }
+
+        public bool Delete(Category category)
+        {
+            _context.Remove(category);
 
             return Save();
         }
