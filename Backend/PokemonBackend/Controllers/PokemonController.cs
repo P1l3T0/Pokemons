@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using PokemonBackend.Dto;
 using PokemonBackend.Interfaces;
 using PokemonBackend.Models;
-using PokemonBackend.Repositories;
 
 namespace PokemonBackend.Controllers
 {
@@ -12,15 +11,11 @@ namespace PokemonBackend.Controllers
     public class PokemonController : Controller
     {
         private readonly IMapper _mapper;
-        private readonly IReviewRepository _reviewRepository;
-        private readonly IOwnerRepository _ownerRepository;
         private readonly IPokemonRepository _pokemonRepository;
 
-        public PokemonController(IPokemonRepository pokemonRepository, IMapper mapper, IOwnerRepository ownerRepository, IReviewRepository reviewRepository)
+        public PokemonController(IPokemonRepository pokemonRepository, IMapper mapper)
         {
             _mapper = mapper;
-            _ownerRepository = ownerRepository;
-            _reviewRepository = reviewRepository;
             _pokemonRepository = pokemonRepository;
         }
 

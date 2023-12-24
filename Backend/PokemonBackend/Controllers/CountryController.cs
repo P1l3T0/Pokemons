@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using PokemonBackend.Dto;
 using PokemonBackend.Interfaces;
 using PokemonBackend.Models;
-using PokemonBackend.Repositories;
 
 namespace PokemonBackend.Controllers
 {
@@ -11,20 +10,20 @@ namespace PokemonBackend.Controllers
     [ApiController]
     public class CountryController : Controller 
     {
-        private readonly ICountryRepository _countryRepository;
         private readonly IMapper _mapper;
+        private readonly ICountryRepository _countryRepository;
 
         public CountryController(ICountryRepository countryRepository, IMapper mapper)
         {
-            _countryRepository = countryRepository;
             _mapper = mapper;
+            _countryRepository = countryRepository;
         }
 
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Country>))]
         public IActionResult GetCountries()
         {
-            var countries = _mapper.Map<List<CountryDto>>(_countryRepository.GetCountries());
+            var countries = _mapper.Map<List<CountryDto>>(_countryRepository.GetAll());
 
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -37,10 +36,10 @@ namespace PokemonBackend.Controllers
         [ProducesResponseType(400)]
         public IActionResult GetCountry(int countryId)
         {
-            if (!_countryRepository.CountryExists(countryId))
+            if (!_countryRepository.Exists(countryId))
                 return NotFound();
 
-            var country = _mapper.Map<CountryDto>(_countryRepository.GetCountry(countryId));
+            var country = _mapper.Map<CountryDto>(_countryRepository.GetById(countryId));
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -70,7 +69,7 @@ namespace PokemonBackend.Controllers
                 return BadRequest();
 
             var categoryDuplicate = _countryRepository
-                .GetCountries()
+                .GetAll()
                 .Where(c => c.Name!.Trim().ToLower().Equals(countryCreate.Name!.Trim().ToLower(), StringComparison.CurrentCultureIgnoreCase))
                 .FirstOrDefault();
 
@@ -85,7 +84,7 @@ namespace PokemonBackend.Controllers
 
             var countryMap = _mapper.Map<Country>(countryCreate);
 
-            if (!_countryRepository.CreateCountry(countryMap))
+            if (!_countryRepository.Create(countryMap))
             {
                 ModelState.AddModelError("", "Something went wrong while saving");
                 return StatusCode(500, ModelState);
@@ -103,12 +102,12 @@ namespace PokemonBackend.Controllers
             if (updatedCountry == null || countryId != updatedCountry.Id)
                 return BadRequest(ModelState);
 
-            if (!_countryRepository.CountryExists(countryId))
+            if (!_countryRepository.Exists(countryId))
                 return NotFound();
 
             var countryMap = _mapper.Map<Country>(updatedCountry);
 
-            if (!_countryRepository.UpdateCountry(countryMap))
+            if (!_countryRepository.Update(countryMap))
             {
                 ModelState.AddModelError("", "Something went wrong while updating");
                 return StatusCode(500, ModelState);

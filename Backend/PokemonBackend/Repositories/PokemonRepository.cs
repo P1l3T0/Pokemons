@@ -4,13 +4,19 @@ using PokemonBackend.Models;
 
 namespace PokemonBackend.Repositories
 {
-    public class PokemonRepository : BaseRepository, IPokemonRepository
+    public class PokemonRepository : IPokemonRepository
     {
         private readonly DataContext _context;
 
-        public PokemonRepository(DataContext context) : base(context)
+        public PokemonRepository(DataContext context)
         {
             _context = context;
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0;
         }
 
         public bool PokemonExists(int pokeId)

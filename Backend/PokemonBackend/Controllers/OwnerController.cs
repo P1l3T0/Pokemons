@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using PokemonBackend.Dto;
 using PokemonBackend.Interfaces;
 using PokemonBackend.Models;
-using PokemonBackend.Repositories;
 
 namespace PokemonBackend.Controllers
 {
@@ -26,7 +25,7 @@ namespace PokemonBackend.Controllers
         [ProducesResponseType(200, Type = typeof(IEnumerable<Owner>))]
         public IActionResult GetOwners() 
         {
-            var owners = _mapper.Map<List<OwnerDto>>(_ownerRepository.GetOwners());
+            var owners = _mapper.Map<List<OwnerDto>>(_ownerRepository.GetAll());
 
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -39,10 +38,10 @@ namespace PokemonBackend.Controllers
         [ProducesResponseType(400)]
         public IActionResult GetOwner(int ownerId)
         {
-            if (!_ownerRepository.OwnerExists(ownerId))
+            if (!_ownerRepository.Exists(ownerId))
                 return NotFound();
 
-            var owner = _mapper.Map<OwnerDto>(_ownerRepository.GetOwner(ownerId));
+            var owner = _mapper.Map<OwnerDto>(_ownerRepository.GetById(ownerId));
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -55,7 +54,7 @@ namespace PokemonBackend.Controllers
         [ProducesResponseType(400)]
         public IActionResult GetPokemonByOwner(int ownerId)
         {
-            if (!_ownerRepository.OwnerExists(ownerId))
+            if (!_ownerRepository.Exists(ownerId))
                 return NotFound();
 
             var owner = _mapper.Map<List<PokemonDto>>(_ownerRepository.GetPokemonByOwner(ownerId));
@@ -75,7 +74,7 @@ namespace PokemonBackend.Controllers
                 return BadRequest();
 
             var ownerDuplicate = _ownerRepository
-                .GetOwners()
+                .GetAll()
                 .Where(o => o.LastName!.Trim().ToLower().Equals(ownerCreate.LastName!.Trim().ToLower(), StringComparison.CurrentCultureIgnoreCase))
                 .FirstOrDefault();
 
@@ -89,9 +88,9 @@ namespace PokemonBackend.Controllers
                 return BadRequest(ModelState);
 
             var ownerMap = _mapper.Map<Owner>(ownerCreate);
-            ownerMap.Country = _countryRepository.GetCountry(countryId);
+            ownerMap.Country = _countryRepository.GetById(countryId);
 
-            if (!_ownerRepository.CreateOwner(ownerMap))
+            if (!_ownerRepository.Create(ownerMap))
             {
                 ModelState.AddModelError("", "Something went wrong while saving");
                 return StatusCode(500, ModelState);
@@ -109,12 +108,12 @@ namespace PokemonBackend.Controllers
             if (updatedOwner == null || ownerId != updatedOwner.Id)
                 return BadRequest(ModelState);
 
-            if (!_ownerRepository.OwnerExists(ownerId))
+            if (!_ownerRepository.Exists(ownerId))
                 return NotFound();
 
             var ownerMap = _mapper.Map<Owner>(updatedOwner);
 
-            if (!_ownerRepository.UpdateOwner(ownerMap))
+            if (!_ownerRepository.Update(ownerMap))
             {
                 ModelState.AddModelError("", "Something went wrong while updating");
                 return StatusCode(500, ModelState);

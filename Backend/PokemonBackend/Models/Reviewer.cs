@@ -1,8 +1,7 @@
 ﻿namespace PokemonBackend.Models
 {
-    public class Reviewer
+    public class Reviewer : BaseModel
     {
-        public int Id { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public ICollection<Review>? Reviews { get; set; }

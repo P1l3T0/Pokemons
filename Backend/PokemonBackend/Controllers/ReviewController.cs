@@ -28,7 +28,7 @@ namespace PokemonBackend.Controllers
         [ProducesResponseType(200, Type = typeof(IEnumerable<Review>))]
         public IActionResult GetReviews()
         {
-            var reviews = _mapper.Map<List<ReviewDto>>(_reviewRepository.GetReviews());
+            var reviews = _mapper.Map<List<ReviewDto>>(_reviewRepository.GetAll());
 
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -41,10 +41,10 @@ namespace PokemonBackend.Controllers
         [ProducesResponseType(200, Type = typeof(Review))]
         public IActionResult GetReview(int reviewId)
         {
-            if (!_reviewRepository.ReviewExists(reviewId))
+            if (!_reviewRepository.Exists(reviewId))
                 return NotFound();
 
-            var review = _mapper.Map<ReviewDto>(_reviewRepository.GetReview(reviewId));
+            var review = _mapper.Map<ReviewDto>(_reviewRepository.GetById(reviewId));
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -57,7 +57,7 @@ namespace PokemonBackend.Controllers
         [ProducesResponseType(200, Type = typeof(IEnumerable<Review>))]
         public IActionResult GetReviewsForPokemon(int pokeId)
         {
-            if (!_reviewRepository.ReviewExists(pokeId))
+            if (!_reviewRepository.Exists(pokeId))
                 return NotFound();
 
             var reviews = _mapper.Map<List<ReviewDto>>(_reviewRepository.GetReviewsForPokemon(pokeId));
@@ -77,7 +77,7 @@ namespace PokemonBackend.Controllers
                 return BadRequest();
 
             var reviewDuplicate = _reviewRepository
-                .GetReviews()
+                .GetAll()
                 .Where(r => r.Title!.Trim().ToLower().Equals(reviewCreate.Title!.Trim().ToLower(), StringComparison.CurrentCultureIgnoreCase))
                 .FirstOrDefault();
 
@@ -93,9 +93,9 @@ namespace PokemonBackend.Controllers
             var reviewMap = _mapper.Map<Review>(reviewCreate);
 
             reviewMap.Pokemon = _pokeRepository.GetPokemon(pokemonId);
-            reviewMap.Reviewer = _reviewerRepository.GetReviewer(reviewerId);
+            reviewMap.Reviewer = _reviewerRepository.GetById(reviewerId);
 
-            if (!_reviewRepository.CreateReview(reviewMap))
+            if (!_reviewRepository.Create(reviewMap))
             {
                 ModelState.AddModelError("", "Something went wrong while saving");
                 return StatusCode(500, ModelState);
@@ -113,12 +113,12 @@ namespace PokemonBackend.Controllers
             if (updatedReview == null || reviewId != updatedReview.Id)
                 return BadRequest(ModelState);
 
-            if (!_reviewRepository.ReviewExists(reviewId))
+            if (!_reviewRepository.Exists(reviewId))
                 return NotFound();
 
             var reviewMap = _mapper.Map<Review>(updatedReview);
 
-            if (!_reviewRepository.UpdateReview(reviewMap))
+            if (!_reviewRepository.Update(reviewMap))
             {
                 ModelState.AddModelError("", "Something went wrong while updating");
                 return StatusCode(500, ModelState);

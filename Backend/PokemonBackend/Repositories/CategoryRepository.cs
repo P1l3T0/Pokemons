@@ -4,28 +4,53 @@ using PokemonBackend.Models;
 
 namespace PokemonBackend.Repositories
 {
-    public class CategoryRepository : BaseRepository, ICategoryRepository
+    public class CategoryRepository : ICategoryRepository
     {
         private readonly DataContext _context;
 
-        public CategoryRepository(DataContext context) : base(context)
+        public CategoryRepository(DataContext context) 
         {
             _context = context;
         }
 
-        public bool CategoryExists(int id)
+        public bool Save()
         {
-            return _context.Categories.Any(c => c.Id == id);
+            var saved = _context.SaveChanges();
+            return saved > 0;
         }
 
-        public Category GetCategory(int id)
+        public bool Exists(int categoryId)
+        {
+            return _context.Categories.Any(c => c.Id == categoryId);
+        }
+
+        public bool Delete(int categoryId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Create(Category category)
+        {
+            _context.Add(category);
+
+            return Save();
+        }
+
+        public bool Update(Category category)
+        {
+            _context.Update(category);
+
+            return Save();
+        }
+
+        public Category GetById(int categoryId)
         {
             return _context.Categories
-                .Where(c => c.Id == id)
+                .Where(c => c.Id == categoryId)
                 .FirstOrDefault()!;
         }
 
-        public ICollection<Category> GetCategories()
+        public ICollection<Category> GetAll()
         {
             return _context.Categories.ToList();
         }
@@ -36,20 +61,6 @@ namespace PokemonBackend.Repositories
                 .Where(c => c.CategoryId == categoryId)
                 .Select(c => c.Pokemon)
                 .ToList()!;
-        }
-
-        public bool CreateCategory(Category category)
-        {
-            _context.Add(category);
-
-            return Save();
-        }
-
-        public bool UpdateCategory(Category category)
-        {
-            _context.Update(category);
-
-            return Save();
         }
     }
 }

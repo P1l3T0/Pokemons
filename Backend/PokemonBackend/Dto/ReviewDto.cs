@@ -1,10 +1,7 @@
-﻿using PokemonBackend.Models;
-
-namespace PokemonBackend.Dto
+﻿namespace PokemonBackend.Dto
 {
-    public class ReviewDto
+    public class ReviewDto : BaseDto
     {
-        public int Id { get; set; }
         public string? Title { get; set; }
         public string? Text { get; set; }
         public int Rating { get; set; }

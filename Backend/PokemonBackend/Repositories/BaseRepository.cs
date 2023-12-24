@@ -1,9 +1,8 @@
 ﻿using PokemonBackend.Data;
-using PokemonBackend.Interfaces;
 
 namespace PokemonBackend.Repositories
 {
-    public class BaseRepository : IBaseRepository
+    public class BaseRepository
     {
         private readonly DataContext _context;
 

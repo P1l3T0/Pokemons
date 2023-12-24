@@ -10,20 +10,20 @@ namespace PokemonBackend.Controllers
     [ApiController]
     public class CategoryController : Controller
     {
-        private readonly ICategoryRepository _categoryRepository;
         private readonly IMapper _mapper;
+        private readonly ICategoryRepository _categoryRepository;
 
         public CategoryController(ICategoryRepository categoryRepository, IMapper mapper)
         {
-            _categoryRepository = categoryRepository;
             _mapper = mapper;
+            _categoryRepository = categoryRepository;
         }
 
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Category>))]
         public IActionResult GetCategories()
         {
-            var categories = _mapper.Map<List<CategoryDto>>(_categoryRepository.GetCategories());
+            var categories = _mapper.Map<List<CategoryDto>>(_categoryRepository.GetAll());
 
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -36,10 +36,10 @@ namespace PokemonBackend.Controllers
         [ProducesResponseType(400)]
         public IActionResult GetCategory(int categoryId)
         {
-            if (!_categoryRepository.CategoryExists(categoryId))
+            if (!_categoryRepository.Exists(categoryId))
                 return NotFound();
 
-            var category = _mapper.Map<CategoryDto>(_categoryRepository.GetCategory(categoryId));
+            var category = _mapper.Map<CategoryDto>(_categoryRepository.GetById(categoryId));
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -69,7 +69,7 @@ namespace PokemonBackend.Controllers
                 return BadRequest();
 
             var category = _categoryRepository
-                .GetCategories()
+                .GetAll()
                 .Where(c => c.Name!.Trim().ToLower().Equals(categoryCreate.Name!.Trim().ToLower(), StringComparison.CurrentCultureIgnoreCase))
                 .FirstOrDefault();
 
@@ -84,7 +84,7 @@ namespace PokemonBackend.Controllers
 
             var categoryMap = _mapper.Map<Category>(categoryCreate);
 
-            if (!_categoryRepository.CreateCategory(categoryMap))
+            if (!_categoryRepository.Create(categoryMap))
             {
                 ModelState.AddModelError("", "Something went wrong while saving");
                 return StatusCode(500, ModelState);
@@ -102,12 +102,12 @@ namespace PokemonBackend.Controllers
             if (updatedCategory == null || categoryId != updatedCategory.Id)
                 return BadRequest(ModelState);
 
-            if (!_categoryRepository.CategoryExists(categoryId))
+            if (!_categoryRepository.Exists(categoryId))
                 return NotFound();
 
             var categoryMap = _mapper.Map<Category>(updatedCategory);
 
-            if (!_categoryRepository.UpdateCategory(categoryMap))
+            if (!_categoryRepository.Update(categoryMap))
             {
                 ModelState.AddModelError("", "Something went wrong while updating");
                 return StatusCode(500, ModelState);

@@ -2,13 +2,8 @@
 
 namespace PokemonBackend.Interfaces
 {
-    public interface IReviewerRepository : IBaseRepository
+    public interface IReviewerRepository : ICRUDRepository<Reviewer>
     {
-        bool ReviewerExists(int reviewerId);
-        Reviewer GetReviewer(int reviewerId);
-        ICollection<Reviewer> GetReviewers();
         ICollection<Review> GetReviewsByReviewer(int reviewerId);
-        bool CreateReviewer(Reviewer reviewer);
-        bool UpdateReviewer(Reviewer reviewer);
     }
 }

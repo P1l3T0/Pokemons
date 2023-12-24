@@ -5,21 +5,46 @@ using PokemonBackend.Models;
 
 namespace PokemonBackend.Repositories
 {
-    public class ReviewerRepository : BaseRepository, IReviewerRepository
+    public class ReviewerRepository : IReviewerRepository
     {
         private readonly DataContext _context;
 
-        public ReviewerRepository(DataContext context) : base(context)
+        public ReviewerRepository(DataContext context)
         {
             _context = context;
         }
 
-        public bool ReviewerExists(int reviewerId)
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0;
+        }
+
+        public bool Exists(int reviewerId)
         {
             return _context.Revieweres.Any(r => r.Id == reviewerId);
         }
 
-        public Reviewer GetReviewer(int reviewerId)
+        public bool Delete(int reviewerId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Create(Reviewer reviewer)
+        {
+            _context.Add(reviewer);
+
+            return Save();
+        }
+
+        public bool Update(Reviewer reviewer)
+        {
+            _context.Update(reviewer);
+
+            return Save();
+        }
+
+        public Reviewer GetById(int reviewerId)
         {
             return _context.Revieweres
                 .Where(r => r.Id == reviewerId)
@@ -27,7 +52,7 @@ namespace PokemonBackend.Repositories
                 .FirstOrDefault()!;
         }
 
-        public ICollection<Reviewer> GetReviewers()
+        public ICollection<Reviewer> GetAll()
         {
             return _context.Revieweres.ToList();
         }
@@ -37,20 +62,6 @@ namespace PokemonBackend.Repositories
             return _context.Reviews
                 .Where(r => r.Reviewer!.Id == reviewerId)
                 .ToList();
-        }
-
-        public bool CreateReviewer(Reviewer reviewer)
-        {
-            _context.Add(reviewer);
-
-            return Save();  
-        }
-
-        public bool UpdateReviewer(Reviewer reviewer)
-        {
-            _context.Update(reviewer);
-
-            return Save();
         }
     }
 }

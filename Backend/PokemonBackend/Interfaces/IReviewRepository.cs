@@ -2,13 +2,8 @@
 
 namespace PokemonBackend.Interfaces
 {
-    public interface IReviewRepository : IBaseRepository
+    public interface IReviewRepository : ICRUDRepository<Review>
     {
-        bool ReviewExists(int reviewId);
-        Review GetReview(int reviewId);
-        ICollection<Review> GetReviews();
         ICollection<Review> GetReviewsForPokemon(int pokeId);
-        bool CreateReview(Review review);
-        bool UpdateReview(Review review);
     }
 }

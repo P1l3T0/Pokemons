@@ -4,25 +4,55 @@ using PokemonBackend.Models;
 
 namespace PokemonBackend.Repositories
 {
-    public class OwnerRepository : BaseRepository, IOwnerRepository
+    public class OwnerRepository : IOwnerRepository
     {
         private readonly DataContext _context;
 
-        public OwnerRepository(DataContext context) : base(context)
+        public OwnerRepository(DataContext context)
         {
             _context = context;
         }
 
-        public bool OwnerExists(int ownerId)
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0;
+        }
+
+        public bool Exists(int ownerId)
         {
             return _context.Owners.Any(o => o.Id == ownerId);
         }
 
-        public Owner GetOwner(int ownerId)
+        public bool Delete(int ownerId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Create(Owner owner)
+        {
+            _context.Add(owner);
+
+            return Save();
+        }
+
+        public bool Update(Owner owner)
+        {
+            _context.Update(owner);
+
+            return Save();
+        }
+
+        public Owner GetById(int ownerId)
         {
             return _context.Owners
                 .Where(o => o.Id == ownerId)
                 .FirstOrDefault()!;
+        }
+
+        public ICollection<Owner> GetAll()
+        {
+            return _context.Owners.ToList();
         }
 
         public ICollection<Owner> GetOwnerOfPokemon(int pokeId)
@@ -33,31 +63,12 @@ namespace PokemonBackend.Repositories
                 .ToList()!;
         }
 
-        public ICollection<Owner> GetOwners()
-        {
-            return _context.Owners.ToList();
-        }
-
         public ICollection<Pokemon> GetPokemonByOwner(int ownerId)
         {
             return _context.PokemonOwners
                 .Where(p => p.Pokemon!.Id == ownerId)
                 .Select(p => p.Pokemon)
                 .ToList()!;
-        }
-
-        public bool CreateOwner(Owner owner)
-        {
-            _context.Add(owner);
-
-            return Save();
-        }
-
-        public bool UpdateOwner(Owner owner)
-        {
-            _context.Update(owner);
-
-            return Save();
         }
     }
 }

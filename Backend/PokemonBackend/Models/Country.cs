@@ -1,8 +1,7 @@
 ﻿namespace PokemonBackend.Models
 {
-    public class Country
+    public class Country : BaseModel
     {
-        public int Id { get; set; }
         public string? Name { get; set; }
         public ICollection<Owner>? Owners { get; set; }
     }

@@ -2,8 +2,9 @@
 
 namespace PokemonBackend.Interfaces
 {
-    public interface IPokemonRepository : IBaseRepository
+    public interface IPokemonRepository
     {
+        bool Save();
         bool PokemonExists (int pokeId);
         decimal GetPokemonRating(int pokeId);
         Pokemon GetPokemon(int id);
