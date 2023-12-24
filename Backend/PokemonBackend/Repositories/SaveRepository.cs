@@ -1,12 +1,13 @@
 ﻿using PokemonBackend.Data;
+using PokemonBackend.Interfaces;
 
 namespace PokemonBackend.Repositories
 {
-    public class BaseRepository
+    public class SaveRepository : ISaveRepository
     {
         private readonly DataContext _context;
 
-        public BaseRepository(DataContext context)
+        public SaveRepository(DataContext context)
         {
             _context = context;
         }

@@ -1,23 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
-using PokemonBackend.Data;
+﻿using PokemonBackend.Data;
 using PokemonBackend.Interfaces;
 using PokemonBackend.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace PokemonBackend.Repositories
 {
-    public class ReviewerRepository : IReviewerRepository
+    public class ReviewerRepository : SaveRepository, IReviewerRepository
     {
         private readonly DataContext _context;
 
-        public ReviewerRepository(DataContext context)
+        public ReviewerRepository(DataContext context) : base(context)
         {
             _context = context;
-        }
-
-        public bool Save()
-        {
-            var saved = _context.SaveChanges();
-            return saved > 0;
         }
 
         public bool Exists(int reviewerId)

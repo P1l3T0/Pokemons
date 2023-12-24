@@ -4,20 +4,14 @@ using PokemonBackend.Models;
 
 namespace PokemonBackend.Repositories
 {
-    public class ReviewRepository : IReviewRepository
+    public class ReviewRepository : SaveRepository, IReviewRepository
     {
         private readonly DataContext _context;
 
-        public ReviewRepository(DataContext context)
+        public ReviewRepository(DataContext context) : base(context)
         {
             _context = context;
-        }
-
-        public bool Save()
-        {
-            var saved = _context.SaveChanges();
-            return saved > 0;
-        }
+        }  
 
         public bool Exists(int reviewId)
         {
