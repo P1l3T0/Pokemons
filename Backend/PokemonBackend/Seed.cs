@@ -5,15 +5,15 @@ namespace PokemonBackend
 {
     public class Seed
     {
-        private readonly DataContext dataContext;
+        private readonly DataContext _dataContext;
         public Seed(DataContext context)
         {
-            this.dataContext = context;
+            _dataContext = context;
         }
 
         public void SeedDataContext()
         {
-            if (!dataContext.PokemonOwners.Any())
+            if (!_dataContext.PokemonOwners.Any())
             {
                 var pokemonOwners = new List<PokemonOwner>()
                 {
@@ -210,8 +210,8 @@ namespace PokemonBackend
                         }
                     }
                 };
-                dataContext.PokemonOwners.AddRange(pokemonOwners);
-                dataContext.SaveChanges();
+                _dataContext.PokemonOwners.AddRange(pokemonOwners);
+                _dataContext.SaveChanges();
             }
         }
     }

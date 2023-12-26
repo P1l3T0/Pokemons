@@ -4,6 +4,7 @@ using PokemonBackend;
 using PokemonBackend.Interfaces;
 using PokemonBackend.Repositories;
 using System.Text.Json.Serialization;
+using Microsoft.Data.SqlClient;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,19 @@ builder.Services.AddTransient<Seed>();
 builder.Services.AddControllers().AddJsonOptions(x =>
     x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+var provider = builder.Services?.BuildServiceProvider();
+var configuration = provider!.GetRequiredService<IConfiguration>();
+
+builder.Services!.AddCors(options =>
+{
+    var frontendURL = configuration.GetValue<string>("FrontEnd_URL");
+
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.WithOrigins(frontendURL).AllowAnyMethod().AllowAnyHeader();
+    });
+});
 
 builder.Services.AddScoped<IPokemonRepository, PokemonRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
@@ -58,6 +72,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors();
 
 app.UseAuthorization();
 
