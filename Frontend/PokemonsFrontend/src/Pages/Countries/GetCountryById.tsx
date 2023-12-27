@@ -1,27 +1,27 @@
 import { useState } from 'react'
-import { getCountryById } from '../../endpoints'
+import { countriesEndPoint } from '../../endpoints'
 import axios, { AxiosResponse } from "axios";
 
 const GetCountryById = () => {
-  type CountryObjects = {
+  type CountryObject = {
     name: string;
     id: number;
   };
 
   const [id, setId] = useState(0);
-  const [initiallyClicked, setinitiallyClicked] = useState(false);
-  const [data, setData] = useState<CountryObjects | null>(null);
+  const [country, setCountry] = useState<CountryObject | null>(null);
+  const [initiallyClicked, setInitiallyClicked] = useState(false);
 
   const onChange = (e: any) => {
     setId(e.target.value);
   }
 
-  const handleClickAsync = async () => {
+  const getCountryByIdAsync = async () => {
     await axios
-      .get(`${getCountryById}/${id}`)
-      .then((res: AxiosResponse<CountryObjects>) => {
-        setData(res.data);
-        !initiallyClicked ? setinitiallyClicked(true) : ""
+      .get(`${countriesEndPoint}/${id}`)
+      .then((res: AxiosResponse<CountryObject>) => {
+        setCountry(res.data);
+        !initiallyClicked ? setInitiallyClicked(true) : ""
       })
       .catch((err) => {
         console.log(err);
@@ -33,10 +33,10 @@ const GetCountryById = () => {
       <div className="container">
         <div className='container-child-1'>
           <input name='id' onChange={onChange} type='number' placeholder='ID goes here' />
-          <button className='get' onClick={handleClickAsync}>Get country by ID: </button>
+          <button className='get' onClick={getCountryByIdAsync}>Get country by ID</button>
         </div>
 
-        <div>
+        <div className='container-child-2'>
           {initiallyClicked ? (
             <table>
               <thead>
@@ -47,8 +47,8 @@ const GetCountryById = () => {
               </thead>
               <tbody>
                 <tr>
-                  <td>{data?.name}</td>
-                  <td>{data?.id}</td>
+                  <td>{country?.name}</td>
+                  <td>{country?.id}</td>
                 </tr>
               </tbody>
             </table>
@@ -56,7 +56,7 @@ const GetCountryById = () => {
             ""
           )}
         </div>
-      </div>
+      </div >
     </>
   )
 }

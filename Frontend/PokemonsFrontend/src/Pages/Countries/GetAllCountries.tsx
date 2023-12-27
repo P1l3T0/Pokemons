@@ -1,39 +1,37 @@
 import { useState } from "react";
-import { getAllCountries } from "../../endpoints";
+import { countriesEndPoint } from "../../endpoints";
 import axios, { AxiosResponse } from "axios";
 
-const AllCountries = () => {
+const GetAllCountries = () => {
   type CountryObjects = {
     name: string;
     id: number;
   };
 
   const [data, setData] = useState<CountryObjects[] | null>(null);
-  const [clicked, setClicked] = useState(false);
+  const [initiallyClicked, setInitiallyClicked] = useState(false);
 
-  const handleClickAsync = async () => {
-    if (!clicked) {
-      await axios
-        .get(getAllCountries)
-        .then((res: AxiosResponse<CountryObjects[]>) => {
-          setData(res.data);
-          setClicked(true);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+  const getAllCountriesAsync = async () => {
+    await axios
+      .get(countriesEndPoint)
+      .then((res: AxiosResponse<CountryObjects[]>) => {
+        setData(res.data);
+        !initiallyClicked ? setInitiallyClicked(true) : ""
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
     <>
       <div className="container">
         <div className="container-child-1">
-          <button className="get" onClick={handleClickAsync}>Get all Countries</button>
+          <button className="get" onClick={getAllCountriesAsync}>Get all Countries</button>
         </div>
 
-        <div>
-          {clicked ? (
+        <div className="container-child-2">
+          {initiallyClicked ? (
             <table>
               <thead>
                 <tr>
@@ -59,4 +57,4 @@ const AllCountries = () => {
   );
 };
 
-export default AllCountries
+export default GetAllCountries

@@ -1,11 +1,13 @@
-import AllCountries from "./AllCountries";
+import GetAllCountries from "./GetAllCountries";
+import CreateCountry from "./CreateCountry";
 import GetCountryById from "./GetCountryById";
 
 const Countries = () => {
   return (
     <>
-      <AllCountries />
+      <GetAllCountries />
       <GetCountryById />
+      <CreateCountry />
     </>
   );
 };
