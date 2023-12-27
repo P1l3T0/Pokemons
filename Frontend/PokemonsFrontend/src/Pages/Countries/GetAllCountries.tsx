@@ -8,14 +8,14 @@ const GetAllCountries = () => {
     id: number;
   };
 
-  const [data, setData] = useState<CountryObjects[] | null>(null);
+  const [countries, setCountries] = useState<CountryObjects[] | null>(null);
   const [initiallyClicked, setInitiallyClicked] = useState(false);
 
   const getAllCountriesAsync = async () => {
     await axios
       .get(countriesEndPoint)
       .then((res: AxiosResponse<CountryObjects[]>) => {
-        setData(res.data);
+        setCountries(res.data);
         !initiallyClicked ? setInitiallyClicked(true) : ""
       })
       .catch((err) => {
@@ -40,7 +40,7 @@ const GetAllCountries = () => {
                 </tr>
               </thead>
               <tbody>
-                {data?.map((response) => (
+                {countries?.map((response) => (
                   <tr key={response?.id}>
                     <td>{response?.name}</td>
                     <td>{response?.id}</td>

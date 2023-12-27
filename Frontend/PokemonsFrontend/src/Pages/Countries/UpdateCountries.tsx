@@ -1,8 +1,8 @@
+import axios from "axios";
 import { useState } from "react";
 import { countriesEndPoint } from "../../endpoints";
-import axios from "axios";
 
-const CreateCountry = () => {
+const UpdateCountry = () => {
   type CountryObject = {
     id: number;
     name: string;
@@ -10,26 +10,26 @@ const CreateCountry = () => {
 
   const [error, setError] = useState(false);
   const [initiallyClicked, setInitiallyClicked] = useState(false);
-  const [createdCountry, setCreatedCountry] = useState<CountryObject>({
+  const [updatedCountry, setUpdatedCountry] = useState<CountryObject>({
     id: 0,
     name: "",
   });
 
   const onChange = (e: any) => {
     if (e.target.value !== "") {
-      setCreatedCountry({
-        ...createdCountry,
-        name: e.target.value,
-      });
+      setUpdatedCountry({
+        ...updatedCountry,
+        [e.target.name]: e.target.value
+      })
     }
   };
 
-  const createCountryAsync = async () => {
+  const updateCountryAsync = async () => {
     await axios
-      .post(`${countriesEndPoint}`, createdCountry)
+      .put(`${countriesEndPoint}/${updatedCountry.id}`, updatedCountry)
       .then(() => {
         setError(false);
-        !initiallyClicked ? setInitiallyClicked(true) : "";
+        !initiallyClicked ? setInitiallyClicked(true) : ""
       })
       .catch((err) => {
         setError(true);
@@ -42,11 +42,18 @@ const CreateCountry = () => {
       <div className="container">
         <div className="container-child-1">
           <input
+            type="number"
+            name="id"
+            onChange={onChange}
+            placeholder="Country id goes here"
+          />
+          <input
             type="text"
+            name="name"
             onChange={onChange}
             placeholder="Country name goes here"
           />
-          <button className="post" onClick={createCountryAsync}>
+          <button className="put" onClick={updateCountryAsync}>
             Create a country
           </button>
         </div>
@@ -57,7 +64,7 @@ const CreateCountry = () => {
           </div>
         ) : initiallyClicked ? (
           <div>
-            <h3>Succesfully created!</h3>
+            <h3>Succesfully updated!</h3>
           </div>
         ) : (
           ""
@@ -67,4 +74,4 @@ const CreateCountry = () => {
   );
 };
 
-export default CreateCountry;
+export default UpdateCountry;
