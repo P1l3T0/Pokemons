@@ -4,8 +4,8 @@ import { allPokemonCategories } from "../endpoints";
 
 const PokemonCategories = () => {
   type PokemonObject = {
-    name: string;
     id: number;
+    name: string;
   };
 
   const [data, setData] = useState<PokemonObject[] | null>(null);

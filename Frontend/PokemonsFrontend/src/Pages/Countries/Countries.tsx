@@ -1,7 +1,8 @@
-import GetAllCountries from "./GetAllCountries";
-import CreateCountry from "./CreateCountry";
-import GetCountryById from "./GetCountryById";
-import UpdateCountry from "./UpdateCountries";
+import GetAllCountries from "./CountriesCRUD/GetAllCountries";
+import CreateCountry from "./CountriesCRUD/CreateCountry";
+import GetCountryById from "./CountriesCRUD/GetCountryById";
+import UpdateCountry from "./CountriesCRUD/UpdateCountries";
+import DeleteCountry from "./CountriesCRUD/DeleteCountry";
 
 const Countries = () => {
   return (
@@ -10,6 +11,7 @@ const Countries = () => {
       <GetCountryById />
       <CreateCountry />
       <UpdateCountry />
+      <DeleteCountry />
     </>
   );
 };

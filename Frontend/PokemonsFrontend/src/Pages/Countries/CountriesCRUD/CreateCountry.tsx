@@ -1,6 +1,7 @@
-import { useState } from "react";
-import { countriesEndPoint } from "../../endpoints";
 import axios from "axios";
+import { useState } from "react";
+import { countriesEndPoint } from "../../../endpoints";
+import ResponseMessages from "../CountryHelpers/ResponseMessages";
 
 const CreateCountry = () => {
   type CountryObject = {
@@ -10,23 +11,23 @@ const CreateCountry = () => {
 
   const [error, setError] = useState(false);
   const [initiallyClicked, setInitiallyClicked] = useState(false);
-  const [createdCountry, setCreatedCountry] = useState<CountryObject>({
+  const [country, setCountry] = useState<CountryObject>({
     id: 0,
     name: "",
   });
 
   const onChange = (e: any) => {
     if (e.target.value !== "") {
-      setCreatedCountry({
-        ...createdCountry,
-        name: e.target.value,
+      setCountry({
+        ...country,
+        [e.target.name]: e.target.value,
       });
     }
   };
 
   const createCountryAsync = async () => {
     await axios
-      .post(`${countriesEndPoint}`, createdCountry)
+      .post(`${countriesEndPoint}`, country)
       .then(() => {
         setError(false);
         !initiallyClicked ? setInitiallyClicked(true) : "";
@@ -43,6 +44,7 @@ const CreateCountry = () => {
         <div className="container-child-1">
           <input
             type="text"
+            name="name"
             onChange={onChange}
             placeholder="Country name goes here"
           />
@@ -51,17 +53,12 @@ const CreateCountry = () => {
           </button>
         </div>
 
-        {error ? (
-          <div>
-            <h3>Empty values not allowed!</h3>
-          </div>
-        ) : initiallyClicked ? (
-          <div>
-            <h3>Succesfully created!</h3>
-          </div>
-        ) : (
-          ""
-        )}
+        <ResponseMessages
+          error={error}
+          initiallyClicked={initiallyClicked}
+          errorMessage="Empty values not allowed!"
+          successMessage={"Succesfully created!"}
+        />
       </div>
     </>
   );

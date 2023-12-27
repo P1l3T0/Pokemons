@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { countriesEndPoint } from "../../endpoints";
+import { countriesEndPoint } from "../../../endpoints";
 
 const UpdateCountry = () => {
   type CountryObject = {
@@ -10,15 +10,15 @@ const UpdateCountry = () => {
 
   const [error, setError] = useState(false);
   const [initiallyClicked, setInitiallyClicked] = useState(false);
-  const [updatedCountry, setUpdatedCountry] = useState<CountryObject>({
+  const [country, setCountry] = useState<CountryObject>({
     id: 0,
     name: "",
   });
 
   const onChange = (e: any) => {
     if (e.target.value !== "") {
-      setUpdatedCountry({
-        ...updatedCountry,
+      setCountry({
+        ...country,
         [e.target.name]: e.target.value
       })
     }
@@ -26,7 +26,7 @@ const UpdateCountry = () => {
 
   const updateCountryAsync = async () => {
     await axios
-      .put(`${countriesEndPoint}/${updatedCountry.id}`, updatedCountry)
+      .put(`${countriesEndPoint}/${country.id}`, country)
       .then(() => {
         setError(false);
         !initiallyClicked ? setInitiallyClicked(true) : ""
@@ -60,7 +60,7 @@ const UpdateCountry = () => {
 
         {error ? (
           <div>
-            <h3>Empty values not allowed!</h3>
+            <h3>Enter valid values!</h3>
           </div>
         ) : initiallyClicked ? (
           <div>
