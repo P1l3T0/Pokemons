@@ -27,7 +27,8 @@ const PokemonCategories = () => {
 
       <ul>
         {data?.map((response) => (
-          <li key={response?.id}>{response?.name}</li>
+
+          <li key={response?.id}>{response?.name}, ID: {response?.id}</li>
         ))}
       </ul>
     </>

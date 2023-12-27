@@ -1,13 +1,12 @@
-import './App.css'
-import Cities from './Pages/Cities'
+import Countries from './Pages/Countries/Countries'
 import PokemonCategories from './Pages/PokemonCategories'
 
 function App() {
 
   return (
     <>
-      <PokemonCategories />
-      <Cities />
+      {/* <PokemonCategories /> */}
+      <Countries />
     </>
   )
 }
