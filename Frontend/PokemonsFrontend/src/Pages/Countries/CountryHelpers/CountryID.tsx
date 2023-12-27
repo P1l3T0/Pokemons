@@ -6,10 +6,15 @@ type CountryIDProps = {
 }
 
 const CountryID: React.FC<CountryIDProps> = ({ setId, httpMethod, onClick, buttonText }) => {
-  const onChange = (e: any) => {
-    if (e.target.value !== "" && e.target.value > 0) {
-      setId(e.target.value)
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const id = parseInt(e.target.value, 10);
+
+    if (isNaN(id) || id < 0) {
+      setId(1);
+      return
     }
+
+    setId(id)
   };
 
   return (
@@ -18,6 +23,7 @@ const CountryID: React.FC<CountryIDProps> = ({ setId, httpMethod, onClick, butto
         <input
           name="id"
           type="number"
+          min={1}
           onChange={onChange}
           placeholder="Country ID goes here"
         />

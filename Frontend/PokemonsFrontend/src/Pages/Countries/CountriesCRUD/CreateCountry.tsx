@@ -16,16 +16,20 @@ const CreateCountry = () => {
     name: "",
   });
 
-  const onChange = (e: any) => {
-    if (e.target.value !== "") {
-      setCountry({
-        ...country,
-        [e.target.name]: e.target.value,
-      });
-    }
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const trimmedValue = e.target.value.trim();
+    setCountry({
+      ...country,
+      [e.target.name]: trimmedValue,
+    });
   };
 
   const createCountryAsync = async () => {
+    if (!country.name.trim()) {
+      setError(true);
+      return;
+    }
+
     await axios
       .post(`${countriesEndPoint}`, country)
       .then(() => {

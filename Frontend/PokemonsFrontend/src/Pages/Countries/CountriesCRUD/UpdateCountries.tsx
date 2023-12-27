@@ -15,16 +15,20 @@ const UpdateCountry = () => {
     name: "",
   });
 
-  const onChange = (e: any) => {
-    if (e.target.value !== "") {
-      setCountry({
-        ...country,
-        [e.target.name]: e.target.value
-      })
-    }
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const trimmedValue = e.target.value.trim();
+    setCountry({
+      ...country,
+      [e.target.name]: trimmedValue
+    })
   };
 
   const updateCountryAsync = async () => {
+    if (!country.name.trim()) {
+      setError(true);
+      return;
+    }
+
     await axios
       .put(`${countriesEndPoint}/${country.id}`, country)
       .then(() => {
@@ -45,7 +49,7 @@ const UpdateCountry = () => {
             type="number"
             name="id"
             onChange={onChange}
-            placeholder="Country id goes here"
+            placeholder="Country ID goes here"
           />
           <input
             type="text"
