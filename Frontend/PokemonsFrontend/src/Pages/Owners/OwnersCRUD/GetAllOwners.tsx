@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import axios, { AxiosResponse } from 'axios';
 import { ownersEndPoint } from '../../../endpoints';
-import ResponseMessages from '../../ResponseMessages';
+import ResponseMessages from '../../Helpers/ResponseMessages';
 
 const GetAllOwners = () => {
   const [error, setError] = useState(false);

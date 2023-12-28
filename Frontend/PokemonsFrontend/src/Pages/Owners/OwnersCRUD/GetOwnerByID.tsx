@@ -1,8 +1,8 @@
 import { useState } from "react";
 import axios, { AxiosResponse } from "axios";
 import { ownersEndPoint } from "../../../endpoints";
-import GetDataByID from "../../GetDataByID";
-import ResponseMessages from "../../ResponseMessages";
+import GetDataByID from "../../Helpers/GetDataByID";
+import ResponseMessages from "../../Helpers/ResponseMessages";
 
 const GetOwnerById = () => {
   const [id, setId] = useState(0);

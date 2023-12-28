@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { countriesEndPoint } from "../../../endpoints";
-import ResponseMessages from "../../ResponseMessages";
+import ResponseMessages from "../../Helpers/ResponseMessages";
 
 const UpdateCountry = () => {
   const [error, setError] = useState(false);

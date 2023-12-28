@@ -10,9 +10,15 @@ type OwnerObject = {
   gym?: string
 }
 
+type CategoryObject = {
+  id?: number,
+  name?: string
+}
+
 type BaseObject =
   CountryObject | CountryObject[] |
-  OwnerObject | OwnerObject[];
+  OwnerObject | OwnerObject[] |
+  CategoryObject | CategoryObject[];
 
 type CombinedMessagesProps = {
   error: boolean;

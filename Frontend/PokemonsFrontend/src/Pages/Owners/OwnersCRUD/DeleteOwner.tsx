@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
-import GetDataByID from "../../GetDataByID";
+import GetDataByID from "../../Helpers/GetDataByID";
 import { ownersEndPoint } from "../../../endpoints";
-import ResponseMessages from "../../ResponseMessages";
+import ResponseMessages from "../../Helpers/ResponseMessages";
 
 const DeleteOwner = () => {
   const [id, setId] = useState(0);
