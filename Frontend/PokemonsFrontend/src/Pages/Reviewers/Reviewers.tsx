@@ -1,4 +1,5 @@
 import CreateReviewer from "./ReviewersCRUD/CreateReviewer";
+import DeleteReviewer from "./ReviewersCRUD/DeleteReviewer";
 import GetAllReviewers from "./ReviewersCRUD/GetAllReviewers";
 import GetReviewerById from "./ReviewersCRUD/GetReviewerByID";
 import UpdateReviewer from "./ReviewersCRUD/UpdateReviewer";
@@ -13,6 +14,7 @@ const Reviewwers = () => {
           <GetReviewerById />
           <CreateReviewer />
           <UpdateReviewer />
+          <DeleteReviewer />
         </div>
       </div>
     </>
