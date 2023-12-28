@@ -1,3 +1,5 @@
+import { hasProperty } from "./ObjectBools";
+
 const ResponseMessages: React.FC<CombinedMessagesProps> = ({
   error,
   errorMessage,
@@ -5,13 +7,6 @@ const ResponseMessages: React.FC<CombinedMessagesProps> = ({
   initiallyClicked,
   data
 }) => {
-  const shouldShowGym = (data: BaseObject) => {
-    if (Array.isArray(data)) {
-      return data.some(item => 'gym' in item);
-    }
-    return 'gym' in data;
-  };
-
   const renderRows = (data: BaseObject) => {
     const dataArray = Array.isArray(data) ? data : [data];
 
@@ -26,7 +21,8 @@ const ResponseMessages: React.FC<CombinedMessagesProps> = ({
       } else if ('gym' in item) {
         return (
           <tr key={item.id}>
-            <td>{item.firstName} {item.lastName}</td>
+            <td>{item.firstName}</td>
+            <td>{item.lastName}</td>
             <td>{item.id}</td>
             <td>{item.gym}</td>
           </tr>
@@ -35,7 +31,18 @@ const ResponseMessages: React.FC<CombinedMessagesProps> = ({
       else if ("firstName" in item) {
         return (
           <tr key={item.id}>
-            <td>{item.firstName} {item.lastName}</td>
+            <td>{item.firstName}</td>
+            <td>{item.lastName}</td>
+            <td>{item.id}</td>
+          </tr>
+        );
+      }
+      else if ("title" in item) {
+        return (
+          <tr key={item.id}>
+            <td>{item.title}</td>
+            <td>{item.text}</td>
+            <td>{item.rating}</td>
             <td>{item.id}</td>
           </tr>
         );
@@ -56,9 +63,18 @@ const ResponseMessages: React.FC<CombinedMessagesProps> = ({
           <table>
             <thead>
               <tr>
-                <th>Name</th>
+                {hasProperty(data, "name") && <th>Name</th>}
+
+                {hasProperty(data, "title") && <th>Pokemon</th>}
+                {hasProperty(data, "title") && <th>Text</th>}
+                {hasProperty(data, "title") && <th>Rating</th>}
+
+                {hasProperty(data, "firstName") && <th>First Name</th>}
+                {hasProperty(data, "firstName") && <th>Last Name</th>}
+
                 <th>ID</th>
-                {shouldShowGym(data) && <th>Gym</th>}
+
+                {hasProperty(data, "gym") && <th>Gym</th>}
               </tr>
             </thead>
             <tbody>
