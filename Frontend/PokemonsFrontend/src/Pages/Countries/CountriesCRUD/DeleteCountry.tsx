@@ -36,7 +36,7 @@ const DeleteCountry = () => {
           error={error}
           initiallyClicked={initiallyClicked}
           errorMessage="Enter a valid ID!"
-          successMessage={"Succesfully deleted!"}
+          successMessage={"Country succesfully deleted!"}
         />
       </div>
     </>

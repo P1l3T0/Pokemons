@@ -48,12 +48,13 @@ button:hover {
 .container {
   display: flex;
   margin: 0rem 10rem 2rem 0;
-  justify-content: space-between;
 }
 
 .app-container {
   display: flex;
+  justify-content: center;
 }
+
 
 .container-child-1 {
   display: flex;

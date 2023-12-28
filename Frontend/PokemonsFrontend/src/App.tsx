@@ -8,8 +8,8 @@ function App() {
     <>
       <div className='app-container'>
         <Countries />
-        <Owners />
         <Categories />
+        <Owners />
       </div>
     </>
   )

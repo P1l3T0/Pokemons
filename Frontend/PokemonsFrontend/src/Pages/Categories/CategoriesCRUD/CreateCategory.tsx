@@ -44,7 +44,7 @@ const CreateCategory = () => {
             placeholder="Category name goes here"
           />
           <button className="post" onClick={createCountryAsync}>
-            Create a country
+            Create a category
           </button>
         </div>
 
@@ -52,7 +52,7 @@ const CreateCategory = () => {
           error={error}
           initiallyClicked={initiallyClicked}
           errorMessage="Invalid or duplicate value!"
-          successMessage={"Succesfully created!"}
+          successMessage={"Category succesfully created!"}
         />
       </div>
     </>

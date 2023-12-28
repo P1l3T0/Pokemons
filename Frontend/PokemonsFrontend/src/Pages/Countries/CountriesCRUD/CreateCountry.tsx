@@ -52,7 +52,7 @@ const CreateCountry = () => {
           error={error}
           initiallyClicked={initiallyClicked}
           errorMessage="Invalid or duplicate value!"
-          successMessage={"Succesfully created!"}
+          successMessage={"Country succesfully created!"}
         />
       </div>
     </>

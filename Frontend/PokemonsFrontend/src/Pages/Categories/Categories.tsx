@@ -1,6 +1,8 @@
 import CreateCategory from "./CategoriesCRUD/CreateCategory";
+import DeleteCategory from "./CategoriesCRUD/DeleteCategory";
 import GetAllCategories from "./CategoriesCRUD/GetAllCategories";
 import GetCategoryById from "./CategoriesCRUD/GetCategoryByID";
+import UpdateCategory from "./CategoriesCRUD/UpdateCategory";
 
 const Categories = () => {
   return (
@@ -11,6 +13,8 @@ const Categories = () => {
           <GetAllCategories />
           <GetCategoryById />
           <CreateCategory />
+          <UpdateCategory />
+          <DeleteCategory />
         </div>
       </div>
     </>
