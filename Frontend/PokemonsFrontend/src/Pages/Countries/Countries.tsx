@@ -7,7 +7,7 @@ import DeleteCountry from "./CountriesCRUD/DeleteCountry";
 const Countries = () => {
   return (
     <>
-      <div className="container">
+      <div>
         <div>
           <h1>Countries</h1>
           <GetAllCountries />

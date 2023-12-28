@@ -6,10 +6,7 @@ import ResponseMessages from "../../Helpers/ResponseMessages";
 const CreateCountry = () => {
   const [error, setError] = useState(false);
   const [initiallyClicked, setInitiallyClicked] = useState(false);
-  const [country, setCountry] = useState<CountryObject>({
-    id: 0,
-    name: "",
-  });
+  const [country, setCountry] = useState<CountryObject>();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCountry({
@@ -19,7 +16,7 @@ const CreateCountry = () => {
   };
 
   const createCountryAsync = async () => {
-    if (!country.name?.trim()) {
+    if (!country?.name?.trim()) {
       setError(true);
       return;
     }

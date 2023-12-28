@@ -7,7 +7,7 @@ import UpdateOwner from "./OwnersCRUD/UpdateOwner";
 const Owners = () => {
   return (
     <>
-      <div className="container">
+      <div>
         <div>
           <h1>Owners</h1>
           <GetAllOwners />

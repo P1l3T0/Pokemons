@@ -8,10 +8,7 @@ const GetCountryById = () => {
   const [id, setId] = useState(0);
   const [error, setError] = useState(false);
   const [initiallyClicked, setInitiallyClicked] = useState(false);
-  const [country, setCountry] = useState<CountryObject>({
-    id: 0,
-    name: "",
-  });
+  const [country, setCountry] = useState<CountryObject>();
 
   const getCountryByIdAsync = async () => {
     await axios
