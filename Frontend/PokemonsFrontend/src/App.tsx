@@ -1,12 +1,12 @@
 import Countries from './Pages/Countries/Countries'
-import PokemonCategories from './Pages/PokemonCategories'
+import Owners from './Pages/Owners/Owners'
 
 function App() {
 
   return (
     <>
-      {/* <PokemonCategories /> */}
       <Countries />
+      <Owners />
     </>
   )
 }
