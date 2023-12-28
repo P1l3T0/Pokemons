@@ -4,13 +4,6 @@ import { ownersEndPoint } from '../../../endpoints';
 import ResponseMessages from '../../ResponseMessages';
 
 const GetAllOwners = () => {
-  type OwnerObject = {
-    id: number,
-    firstName: string,
-    lastName: string,
-    gym: string
-  }
-
   const [error, setError] = useState(false);
   const [owner, setOwner] = useState<OwnerObject[]>([]);
   const [initiallyClicked, setInitiallyClicked] = useState(false);

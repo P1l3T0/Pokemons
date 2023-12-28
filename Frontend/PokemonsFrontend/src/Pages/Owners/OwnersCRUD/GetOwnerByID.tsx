@@ -5,13 +5,6 @@ import GetDataByID from "../../GetDataByID";
 import ResponseMessages from "../../ResponseMessages";
 
 const GetOwnerById = () => {
-  type OwnerObject = {
-    id: number,
-    firstName: string,
-    lastName: string,
-    gym: string
-  }
-
   const [id, setId] = useState(0);
   const [error, setError] = useState(false);
   const [initiallyClicked, setInitiallyClicked] = useState(false);
