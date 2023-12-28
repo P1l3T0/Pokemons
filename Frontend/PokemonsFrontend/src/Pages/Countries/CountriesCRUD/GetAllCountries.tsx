@@ -38,7 +38,7 @@ const GetAllCountries = () => {
 
         <ResponseMessages
           error={error}
-          countries={country}
+          data={country}
           initiallyClicked={initiallyClicked}
           errorMessage="Unexpected server error!"
         />

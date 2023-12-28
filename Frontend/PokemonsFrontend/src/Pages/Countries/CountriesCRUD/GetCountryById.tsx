@@ -44,7 +44,7 @@ const GetCountryById = () => {
 
         <ResponseMessages
           error={error}
-          countries={country}
+          data={country}
           initiallyClicked={initiallyClicked}
           errorMessage="Enter a valid ID!"
         />
