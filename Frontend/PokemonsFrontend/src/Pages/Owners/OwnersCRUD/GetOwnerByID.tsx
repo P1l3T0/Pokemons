@@ -7,8 +7,8 @@ import ResponseMessages from "../../Helpers/ResponseMessages";
 const GetOwnerById = () => {
   const [id, setId] = useState(0);
   const [error, setError] = useState(false);
-  const [initiallyClicked, setInitiallyClicked] = useState(false);
   const [owner, setOwner] = useState<OwnerObject>();
+  const [initiallyClicked, setInitiallyClicked] = useState(false);
 
   const getOwnerByIdAsync = async () => {
     await axios

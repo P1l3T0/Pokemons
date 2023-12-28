@@ -5,8 +5,8 @@ import ResponseMessages from "../../Helpers/ResponseMessages";
 
 const UpdateOwner = () => {
   const [error, setError] = useState(false);
-  const [initiallyClicked, setInitiallyClicked] = useState(false);
   const [owner, setOwner] = useState<OwnerObject>();
+  const [initiallyClicked, setInitiallyClicked] = useState(false);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const trimmedValue = e.target.value.trim();
@@ -70,7 +70,7 @@ const UpdateOwner = () => {
         <ResponseMessages
           error={error}
           initiallyClicked={initiallyClicked}
-          errorMessage="Enter a valid ID!"
+          errorMessage="Enter valid data or ID!"
           successMessage={"Owner succesfully updated!"}
         />
       </div>

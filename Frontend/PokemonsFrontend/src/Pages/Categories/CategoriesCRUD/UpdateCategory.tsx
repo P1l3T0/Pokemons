@@ -58,7 +58,7 @@ const UpdateCategory = () => {
         <ResponseMessages
           error={error}
           initiallyClicked={initiallyClicked}
-          errorMessage="Enter a valid ID!"
+          errorMessage="Enter valid data or ID!"
           successMessage={"Category succesfully updated!"}
         />
       </div>

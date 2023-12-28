@@ -5,8 +5,8 @@ import ResponseMessages from "../../Helpers/ResponseMessages";
 
 const CreateOwner = () => {
   const [error, setError] = useState(false);
-  const [initiallyClicked, setInitiallyClicked] = useState(false);
   const [owner, setOwner] = useState<OwnerObject>()
+  const [initiallyClicked, setInitiallyClicked] = useState(false);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setOwner({

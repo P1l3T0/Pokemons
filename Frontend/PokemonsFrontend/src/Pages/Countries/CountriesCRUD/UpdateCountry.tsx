@@ -58,7 +58,7 @@ const UpdateCountry = () => {
         <ResponseMessages
           error={error}
           initiallyClicked={initiallyClicked}
-          errorMessage="Enter a valid ID!"
+          errorMessage="Enter valid data or ID!"
           successMessage={"Country succesfully updated!"}
         />
       </div>
