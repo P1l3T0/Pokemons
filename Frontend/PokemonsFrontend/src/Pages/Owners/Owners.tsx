@@ -1,4 +1,5 @@
 import CreateOwner from "./OwnersCRUD/CreateOwner";
+import DeleteOwner from "./OwnersCRUD/DeleteOwner";
 import GetAllOwners from "./OwnersCRUD/GetAllOwners";
 import GetOwnerById from "./OwnersCRUD/GetOwnerByID";
 import UpdateOwner from "./OwnersCRUD/UpdateOwner";
@@ -13,6 +14,7 @@ const Owners = () => {
           <GetOwnerById />
           <CreateOwner />
           <UpdateOwner />
+          <DeleteOwner />
         </div>
       </div>
     </>
