@@ -1,20 +1,20 @@
 import { useState } from "react";
 import axios, { AxiosResponse } from "axios";
-import { reviewersEndPoint } from "../../../endpoints";
+import { reviewsEndPoint } from "../../../endpoints";
 import GetDataByID from "../../Helpers/GetDataByID";
 import ResponseMessages from "../../Helpers/ResponseMessages";
 
-const GetReviewerById = () => {
+const GetReviewById = () => {
   const [id, setId] = useState(0);
   const [error, setError] = useState(false);
-  const [reviewer, setReviewer] = useState<ReviewerObject>();
+  const [review, setReview] = useState<ReviewObject>();
   const [initiallyClicked, setInitiallyClicked] = useState(false);
 
-  const getReviewerByIdAsync = async () => {
+  const getReviewByIdAsync = async () => {
     await axios
-      .get(`${reviewersEndPoint}/${id}`)
-      .then((res: AxiosResponse<ReviewerObject>) => {
-        setReviewer(res.data);
+      .get(`${reviewsEndPoint}/${id}`)
+      .then((res: AxiosResponse<ReviewObject>) => {
+        setReview(res.data);
         setError(false);
         !initiallyClicked ? setInitiallyClicked(true) : "";
       })
@@ -30,13 +30,13 @@ const GetReviewerById = () => {
         <GetDataByID
           setId={setId}
           httpMethod={"get"}
-          buttonText={"Get reviewer by ID"}
-          onClick={getReviewerByIdAsync}
+          buttonText={"Get review by ID"}
+          onClick={getReviewByIdAsync}
         />
 
         <ResponseMessages
           error={error}
-          data={reviewer}
+          data={review}
           initiallyClicked={initiallyClicked}
           errorMessage="Enter a valid ID!"
         />
@@ -45,4 +45,4 @@ const GetReviewerById = () => {
   );
 };
 
-export default GetReviewerById;
+export default GetReviewById;
