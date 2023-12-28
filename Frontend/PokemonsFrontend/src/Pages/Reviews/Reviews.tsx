@@ -1,5 +1,6 @@
-import GetAllReviews from "./GetAllReviews";
-import GetReviewById from "./GetReviewerByID";
+import CreateReview from "./ReviewsCRUD/CreateReview";
+import GetAllReviews from "./ReviewsCRUD/GetAllReviews";
+import GetReviewById from "./ReviewsCRUD/GetReviewerByID";
 
 const Reviews = () => {
   return (
@@ -9,6 +10,7 @@ const Reviews = () => {
           <h1>Reviews</h1>
           <GetAllReviews />
           <GetReviewById />
+          <CreateReview />
         </div>
       </div>
     </>

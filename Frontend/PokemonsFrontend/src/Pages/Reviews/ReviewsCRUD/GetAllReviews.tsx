@@ -12,7 +12,6 @@ const GetAllReviews = () => {
     await axios
       .get(reviewsEndPoint)
       .then((res: AxiosResponse<ReviewObject[]>) => {
-        console.log(res.data);
         setReview(res.data);
         setError(false);
         !initiallyClicked ? setInitiallyClicked(true) : "";

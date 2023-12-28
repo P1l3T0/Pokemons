@@ -1,0 +1,75 @@
+import axios from "axios";
+import { useState } from "react";
+import { reviewsEndPoint } from "../../../endpoints";
+import ResponseMessages from "../../Helpers/ResponseMessages";
+
+const CreateReview = () => {
+  const [error, setError] = useState(false);
+  const [review, setReview] = useState<ReviewObject>()
+  const [initiallyClicked, setInitiallyClicked] = useState(false);
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setReview({
+      ...review,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const createReviewAsync = async () => {
+    if ((!review?.title?.trim() || !review?.text?.trim())) {
+      setError(true);
+      return;
+    }
+
+    await axios
+      .post(`${reviewsEndPoint}`, review)
+      .then(() => {
+        setError(false);
+        !initiallyClicked ? setInitiallyClicked(true) : "";
+      })
+      .catch((err) => {
+        setError(true);
+        console.log(err);
+      });
+  };
+
+  return (
+    <>
+      <div className="container">
+        <div className="container-child-1">
+          <input
+            type="text"
+            name="title"
+            onChange={onChange}
+            placeholder="Review title goes here"
+          />
+          <input
+            type="text"
+            name="text"
+            onChange={onChange}
+            placeholder="Review text goes here"
+          />
+          <input
+            type="number"
+            min={1}
+            name="rating"
+            onChange={onChange}
+            placeholder="Rating goes here"
+          />
+          <button className="post" onClick={createReviewAsync}>
+            Create a review
+          </button>
+        </div>
+
+        <ResponseMessages
+          error={error}
+          initiallyClicked={initiallyClicked}
+          errorMessage="Invalid or duplicate value!"
+          successMessage={"Review succesfully created!"}
+        />
+      </div>
+    </>
+  );
+};
+
+export default CreateReview;
