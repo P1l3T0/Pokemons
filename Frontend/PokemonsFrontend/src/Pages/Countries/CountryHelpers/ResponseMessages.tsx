@@ -1,3 +1,5 @@
+import React from "react";
+
 type CountryObject = {
   id?: number;
   name?: string;
@@ -10,7 +12,7 @@ type OwnerObject = {
   gym?: string
 }
 
-type BaseObject = CountryObject | CountryObject[] | OwnerObject | OwnerObject[]
+type BaseObject = CountryObject | CountryObject[] | OwnerObject | OwnerObject[];
 
 type CombinedMessagesProps = {
   error: boolean;
@@ -25,49 +27,34 @@ const ResponseMessages: React.FC<CombinedMessagesProps> = ({
   errorMessage,
   successMessage,
   initiallyClicked,
-  data: data,
+  data
 }) => {
-  const renderRow = (data: BaseObject) => {
-    if (Array.isArray(data)) {
-      return data.map(item => {
-        if ('name' in item) {
-          return (
-            <tr key={item.id}>
-              <td>{item.name}</td>
-              <td>{item.id}</td>
-            </tr>
-          );
-        } else if ('firstName' in item) {
-          return (
-            <tr key={item.id}>
-              <td>{item.firstName} {item.lastName}</td>
-              <td>{item.id}</td>
-              <td>{item.gym}</td>
-            </tr>
-          );
-        }
-      });
-    }
+  const renderRows = (data: BaseObject) => {
+    const dataArray = Array.isArray(data) ? data : [data];
 
-    if ("name" in data) {
-      return (
-        <tr key={data.id}>
-          <td>{data?.name}</td>
-          <td>{data?.id}</td>
-          <td></td>
-        </tr>
-      )
-    }
-    else if ("firstName" in data) {
-      return (
-        <tr key={data.id}>
-          <td>{data.firstName} {data.lastName}</td>
-          <td>{data.id}</td>
-          <td>{data.gym}</td>
-        </tr>
-      );
-    }
-  }
+    const isOwner = dataArray.some(item => 'gym' in item);
+
+    return dataArray.map(item => {
+      if ('name' in item) {
+        return (
+          <tr key={item.id}>
+            <td>{item.name}</td>
+            <td>{item.id}</td>
+          </tr>
+        );
+      } else if ('gym' in item) {
+        return (
+          <tr key={item.id}>
+            <td>{item.firstName} {item.lastName}</td>
+            <td>{item.id}</td>
+            {isOwner && <td>{item.gym}</td>}
+          </tr>
+        );
+      }
+
+      return null;
+    });
+  };
 
   return (
     <div className="container-child-2">
@@ -82,11 +69,11 @@ const ResponseMessages: React.FC<CombinedMessagesProps> = ({
               <tr>
                 <th>Name</th>
                 <th>ID</th>
-                {/* Add additional headers if needed for OwnerObject */}
+                {Array.isArray(data) && data.some(item => 'gym' in item) && <th>Gym</th>}
               </tr>
             </thead>
             <tbody>
-              {renderRow(data)}
+              {renderRows(data)}
             </tbody>
           </table>
         ) : (
@@ -97,6 +84,6 @@ const ResponseMessages: React.FC<CombinedMessagesProps> = ({
       ) : null}
     </div>
   );
-};
+}
 
 export default ResponseMessages;

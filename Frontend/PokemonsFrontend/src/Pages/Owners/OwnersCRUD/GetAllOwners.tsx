@@ -34,7 +34,7 @@ const GetAllOwners = () => {
       <div className="container">
         <div className="container-child-1">
           <button className="get" onClick={getAllCountriesAsync}>
-            Get all Countries
+            Get all Owners
           </button>
         </div>
 
