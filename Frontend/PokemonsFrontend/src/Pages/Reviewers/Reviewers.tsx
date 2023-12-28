@@ -1,4 +1,5 @@
 import GetAllReviewers from "./ReviewersCRUD/GetAllReviewers";
+import GetReviewerById from "./ReviewersCRUD/GetReviewerByID";
 
 const Reviewwers = () => {
   return (
@@ -7,6 +8,7 @@ const Reviewwers = () => {
         <div>
           <h1>Reviewers</h1>
           <GetAllReviewers />
+          <GetReviewerById />
         </div>
       </div>
     </>
