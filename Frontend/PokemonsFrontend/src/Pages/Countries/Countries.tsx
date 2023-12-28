@@ -7,11 +7,16 @@ import DeleteCountry from "./CountriesCRUD/DeleteCountry";
 const Countries = () => {
   return (
     <>
-      <GetAllCountries />
-      <GetCountryById />
-      <CreateCountry />
-      <UpdateCountry />
-      <DeleteCountry />
+      <div className="container">
+        <div>
+          <h1>Countries</h1>
+          <GetAllCountries />
+          <GetCountryById />
+          <CreateCountry />
+          <UpdateCountry />
+          <DeleteCountry />
+        </div>
+      </div>
     </>
   );
 };

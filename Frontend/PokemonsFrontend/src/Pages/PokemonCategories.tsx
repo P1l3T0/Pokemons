@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios, { AxiosResponse } from "axios";
-import { allPokemonCategories } from "../endpoints";
+import { categoriesEndPoint } from "../endpoints";
 
 const PokemonCategories = () => {
   type PokemonObject = {
@@ -12,7 +12,7 @@ const PokemonCategories = () => {
 
   const handleClickAsync = async () => {
     await axios
-      .get(allPokemonCategories)
+      .get(categoriesEndPoint)
       .then((res: AxiosResponse<PokemonObject[]>) => {
         setData(res.data);
       })

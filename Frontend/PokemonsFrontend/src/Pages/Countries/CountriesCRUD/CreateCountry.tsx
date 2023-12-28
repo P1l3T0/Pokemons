@@ -17,10 +17,9 @@ const CreateCountry = () => {
   });
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const trimmedValue = e.target.value.trim();
     setCountry({
       ...country,
-      [e.target.name]: trimmedValue,
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -60,7 +59,7 @@ const CreateCountry = () => {
         <ResponseMessages
           error={error}
           initiallyClicked={initiallyClicked}
-          errorMessage="Empty values not allowed!"
+          errorMessage="Invalid or duplicate value!"
           successMessage={"Succesfully created!"}
         />
       </div>
