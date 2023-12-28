@@ -29,10 +29,15 @@ const ResponseMessages: React.FC<CombinedMessagesProps> = ({
   initiallyClicked,
   data
 }) => {
+  const shouldShowGym = (data: BaseObject) => {
+    if (Array.isArray(data)) {
+      return data.some(item => 'gym' in item);
+    }
+    return 'gym' in data;
+  };
+
   const renderRows = (data: BaseObject) => {
     const dataArray = Array.isArray(data) ? data : [data];
-
-    const isOwner = dataArray.some(item => 'gym' in item);
 
     return dataArray.map(item => {
       if ('name' in item) {
@@ -47,7 +52,7 @@ const ResponseMessages: React.FC<CombinedMessagesProps> = ({
           <tr key={item.id}>
             <td>{item.firstName} {item.lastName}</td>
             <td>{item.id}</td>
-            {isOwner && <td>{item.gym}</td>}
+            <td>{item.gym}</td>
           </tr>
         );
       }
@@ -69,7 +74,7 @@ const ResponseMessages: React.FC<CombinedMessagesProps> = ({
               <tr>
                 <th>Name</th>
                 <th>ID</th>
-                {Array.isArray(data) && data.some(item => 'gym' in item) && <th>Gym</th>}
+                {shouldShowGym(data) && <th>Gym</th>}
               </tr>
             </thead>
             <tbody>

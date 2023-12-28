@@ -1,28 +1,32 @@
 import { useState } from "react";
 import axios, { AxiosResponse } from "axios";
-import { countriesEndPoint } from "../../../endpoints";
+import { ownersEndPoint } from "../../../endpoints";
 import GetDataByID from "../../GetDataByID";
 import ResponseMessages from "../../ResponseMessages";
 
-const GetCountryById = () => {
-  type CountryObject = {
-    id: number;
-    name: string;
-  };
+const GetOwnerById = () => {
+  type OwnerObject = {
+    id: number,
+    firstName: string,
+    lastName: string,
+    gym: string
+  }
 
   const [id, setId] = useState(0);
   const [error, setError] = useState(false);
   const [initiallyClicked, setInitiallyClicked] = useState(false);
-  const [country, setCountry] = useState<CountryObject>({
+  const [owner, setOwner] = useState<OwnerObject>({
     id: 0,
-    name: "",
+    firstName: "",
+    lastName: "",
+    gym: ""
   });
 
-  const getCountryByIdAsync = async () => {
+  const getOwnerByIdAsync = async () => {
     await axios
-      .get(`${countriesEndPoint}/${id}`)
-      .then((res: AxiosResponse<CountryObject>) => {
-        setCountry(res.data);
+      .get(`${ownersEndPoint}/${id}`)
+      .then((res: AxiosResponse<OwnerObject>) => {
+        setOwner(res.data);
         setError(false);
         !initiallyClicked ? setInitiallyClicked(true) : "";
       })
@@ -38,13 +42,13 @@ const GetCountryById = () => {
         <GetDataByID
           setId={setId}
           httpMethod={"get"}
-          buttonText={"Get country by ID"}
-          onClick={getCountryByIdAsync}
+          buttonText={"Get owner by ID"}
+          onClick={getOwnerByIdAsync}
         />
 
         <ResponseMessages
           error={error}
-          data={country}
+          data={owner}
           initiallyClicked={initiallyClicked}
           errorMessage="Enter a valid ID!"
         />
@@ -53,4 +57,4 @@ const GetCountryById = () => {
   );
 };
 
-export default GetCountryById;
+export default GetOwnerById;

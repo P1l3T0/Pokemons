@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import axios, { AxiosResponse } from 'axios';
 import { ownersEndPoint } from '../../../endpoints';
-import ResponseMessages from '../../Countries/CountryHelpers/ResponseMessages';
+import ResponseMessages from '../../ResponseMessages';
 
 const GetAllOwners = () => {
   type OwnerObject = {

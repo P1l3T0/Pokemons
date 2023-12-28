@@ -1,4 +1,5 @@
 import GetAllOwners from "./OwnersCRUD/GetAllOwners";
+import GetOwnerById from "./OwnersCRUD/GetOwnerByID";
 
 const Owners = () => {
 
@@ -9,6 +10,7 @@ const Owners = () => {
         <div>
           <h1>Owners</h1>
           <GetAllOwners />
+          <GetOwnerById />
         </div>
       </div>
     </>

@@ -1,17 +1,17 @@
-type CountryIDProps = {
+type DataIDProps = {
   httpMethod: string,
   buttonText: string,
   setId: React.Dispatch<React.SetStateAction<number>>,
   onClick: React.MouseEventHandler<HTMLButtonElement> | undefined
 }
 
-const CountryID: React.FC<CountryIDProps> = ({ setId, httpMethod, onClick, buttonText }) => {
+const GetDataByID: React.FC<DataIDProps> = ({ setId, httpMethod, onClick, buttonText }) => {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const id = parseInt(e.target.value, 10);
 
     if (isNaN(id) || id < 0) {
       setId(1);
-      return
+      return;
     }
 
     setId(id)
@@ -25,7 +25,7 @@ const CountryID: React.FC<CountryIDProps> = ({ setId, httpMethod, onClick, butto
           type="number"
           min={1}
           onChange={onChange}
-          placeholder="Country ID goes here"
+          placeholder="ID goes here"
         />
         <button className={httpMethod} onClick={onClick}>
           {buttonText}
@@ -35,4 +35,4 @@ const CountryID: React.FC<CountryIDProps> = ({ setId, httpMethod, onClick, butto
   )
 }
 
-export default CountryID
+export default GetDataByID

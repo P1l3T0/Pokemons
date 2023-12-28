@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
-import CountryID from "../CountryHelpers/CountryID";
+import GetDataByID from "../../GetDataByID";
 import { countriesEndPoint } from "../../../endpoints";
-import ResponseMessages from "../CountryHelpers/ResponseMessages";
+import ResponseMessages from "../../ResponseMessages";
 
 const DeleteCountry = () => {
   const [id, setId] = useState(0);
@@ -25,7 +25,7 @@ const DeleteCountry = () => {
   return (
     <>
       <div className="container">
-        <CountryID
+        <GetDataByID
           setId={setId}
           httpMethod={"delete"}
           buttonText={"Delete a country"}

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { countriesEndPoint } from "../../../endpoints";
-import ResponseMessages from "../CountryHelpers/ResponseMessages";
+import ResponseMessages from "../../ResponseMessages";
 
 const CreateCountry = () => {
   type CountryObject = {
