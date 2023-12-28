@@ -4,11 +4,6 @@ import { countriesEndPoint } from "../../../endpoints";
 import ResponseMessages from "../../ResponseMessages";
 
 const CreateCountry = () => {
-  type CountryObject = {
-    id: number;
-    name: string;
-  };
-
   const [error, setError] = useState(false);
   const [initiallyClicked, setInitiallyClicked] = useState(false);
   const [country, setCountry] = useState<CountryObject>({
@@ -24,7 +19,7 @@ const CreateCountry = () => {
   };
 
   const createCountryAsync = async () => {
-    if (!country.name.trim()) {
+    if (!country.name?.trim()) {
       setError(true);
       return;
     }

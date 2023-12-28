@@ -8,12 +8,7 @@ const GetOwnerById = () => {
   const [id, setId] = useState(0);
   const [error, setError] = useState(false);
   const [initiallyClicked, setInitiallyClicked] = useState(false);
-  const [owner, setOwner] = useState<OwnerObject>({
-    id: 0,
-    firstName: "",
-    lastName: "",
-    gym: ""
-  });
+  const [owner, setOwner] = useState<OwnerObject>();
 
   const getOwnerByIdAsync = async () => {
     await axios

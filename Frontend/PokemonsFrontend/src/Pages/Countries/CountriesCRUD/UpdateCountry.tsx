@@ -1,13 +1,9 @@
 import axios from "axios";
 import { useState } from "react";
 import { countriesEndPoint } from "../../../endpoints";
+import ResponseMessages from "../../ResponseMessages";
 
 const UpdateCountry = () => {
-  type CountryObject = {
-    id: number;
-    name: string;
-  };
-
   const [error, setError] = useState(false);
   const [initiallyClicked, setInitiallyClicked] = useState(false);
   const [country, setCountry] = useState<CountryObject>({
@@ -24,7 +20,7 @@ const UpdateCountry = () => {
   };
 
   const updateCountryAsync = async () => {
-    if (!country.name.trim()) {
+    if (!country.name?.trim()) {
       setError(true);
       return;
     }
@@ -58,21 +54,16 @@ const UpdateCountry = () => {
             placeholder="Country name goes here"
           />
           <button className="put" onClick={updateCountryAsync}>
-            Create a country
+            Update a country
           </button>
         </div>
 
-        {error ? (
-          <div>
-            <h3>Enter valid values!</h3>
-          </div>
-        ) : initiallyClicked ? (
-          <div>
-            <h3>Succesfully updated!</h3>
-          </div>
-        ) : (
-          ""
-        )}
+        <ResponseMessages
+          error={error}
+          initiallyClicked={initiallyClicked}
+          errorMessage="Enter a valid ID!"
+          successMessage={"Country succesfully updated!"}
+        />
       </div>
     </>
   );

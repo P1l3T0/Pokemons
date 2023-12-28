@@ -5,11 +5,6 @@ import GetDataByID from "../../GetDataByID";
 import ResponseMessages from "../../ResponseMessages";
 
 const GetCountryById = () => {
-  type CountryObject = {
-    id: number;
-    name: string;
-  };
-
   const [id, setId] = useState(0);
   const [error, setError] = useState(false);
   const [initiallyClicked, setInitiallyClicked] = useState(false);

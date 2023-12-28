@@ -4,11 +4,6 @@ import { countriesEndPoint } from "../../../endpoints";
 import ResponseMessages from "../../ResponseMessages";
 
 const GetAllCountries = () => {
-  type CountryObject = {
-    id: number;
-    name: string;
-  };
-
   const [error, setError] = useState(false);
   const [country, setCountry] = useState<CountryObject[]>([]);
   const [initiallyClicked, setInitiallyClicked] = useState(false);

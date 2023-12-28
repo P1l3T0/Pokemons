@@ -1,6 +1,7 @@
 import CreateOwner from "./OwnersCRUD/CreateOwner";
 import GetAllOwners from "./OwnersCRUD/GetAllOwners";
 import GetOwnerById from "./OwnersCRUD/GetOwnerByID";
+import UpdateOwner from "./OwnersCRUD/UpdateOwner";
 
 const Owners = () => {
   return (
@@ -11,6 +12,7 @@ const Owners = () => {
           <GetAllOwners />
           <GetOwnerById />
           <CreateOwner />
+          <UpdateOwner />
         </div>
       </div>
     </>

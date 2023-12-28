@@ -3,29 +3,30 @@ import { useState } from "react";
 import { ownersEndPoint } from "../../../endpoints";
 import ResponseMessages from "../../ResponseMessages";
 
-const CreateOwner = () => {
+const UpdateOwner = () => {
   const [error, setError] = useState(false);
   const [initiallyClicked, setInitiallyClicked] = useState(false);
-  const [owner, setOwner] = useState<OwnerObject>()
+  const [owner, setOwner] = useState<OwnerObject>();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const trimmedValue = e.target.value.trim();
     setOwner({
       ...owner,
-      [e.target.name]: e.target.value,
-    });
+      [e.target.name]: trimmedValue
+    })
   };
 
-  const createOwnerAsync = async () => {
-    if (!owner?.firstName?.trim() || !owner.lastName?.trim() || !owner.gym?.trim()) {
+  const updateCountryAsync = async () => {
+    if (!owner?.firstName?.trim() || !owner?.lastName?.trim() || !owner?.gym?.trim()) {
       setError(true);
       return;
     }
 
     await axios
-      .post(`${ownersEndPoint}`, owner)
+      .put(`${ownersEndPoint}/${owner.id}`, owner)
       .then(() => {
         setError(false);
-        !initiallyClicked ? setInitiallyClicked(true) : "";
+        !initiallyClicked ? setInitiallyClicked(true) : ""
       })
       .catch((err) => {
         setError(true);
@@ -37,6 +38,12 @@ const CreateOwner = () => {
     <>
       <div className="container">
         <div className="container-child-1">
+          <input
+            type="number"
+            name="id"
+            onChange={onChange}
+            placeholder="Owner ID goes here"
+          />
           <input
             type="text"
             name="firstName"
@@ -55,20 +62,20 @@ const CreateOwner = () => {
             onChange={onChange}
             placeholder="Owner's gym goes here"
           />
-          <button className="post" onClick={createOwnerAsync}>
-            Create an owner
+          <button className="put" onClick={updateCountryAsync}>
+            Update an owner
           </button>
         </div>
 
         <ResponseMessages
           error={error}
           initiallyClicked={initiallyClicked}
-          errorMessage="Invalid or duplicate value!"
-          successMessage={"Succesfully created!"}
+          errorMessage="Enter a valid ID!"
+          successMessage={"Owner succesfully updated!"}
         />
       </div>
     </>
   );
 };
 
-export default CreateOwner;
+export default UpdateOwner;
