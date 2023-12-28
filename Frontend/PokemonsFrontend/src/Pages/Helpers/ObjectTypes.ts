@@ -3,6 +3,11 @@ type CountryObject = {
   name?: string;
 };
 
+type CategoryObject = {
+  id?: number,
+  name?: string
+}
+
 type OwnerObject = {
   id?: number,
   firstName?: string,
@@ -10,15 +15,18 @@ type OwnerObject = {
   gym?: string
 }
 
-type CategoryObject = {
+type ReviewerObject = {
   id?: number,
-  name?: string
+  firstName?: string,
+  lastName?: string,
 }
 
+
 type BaseObject =
-  CountryObject | CountryObject[] |
   OwnerObject | OwnerObject[] |
-  CategoryObject | CategoryObject[];
+  CountryObject | CountryObject[] |
+  CategoryObject | CategoryObject[] |
+  ReviewerObject | ReviewerObject[];
 
 type CombinedMessagesProps = {
   error: boolean;

@@ -32,6 +32,14 @@ const ResponseMessages: React.FC<CombinedMessagesProps> = ({
           </tr>
         );
       }
+      else if ("firstName" in item) {
+        return (
+          <tr key={item.id}>
+            <td>{item.firstName} {item.lastName}</td>
+            <td>{item.id}</td>
+          </tr>
+        );
+      }
 
       return null;
     });
