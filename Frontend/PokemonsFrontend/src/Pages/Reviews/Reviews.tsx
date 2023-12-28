@@ -1,4 +1,5 @@
 import CreateReview from "./ReviewsCRUD/CreateReview";
+import DeleteReview from "./ReviewsCRUD/DeleteReview";
 import GetAllReviews from "./ReviewsCRUD/GetAllReviews";
 import GetReviewById from "./ReviewsCRUD/GetReviewerByID";
 import UpdateReview from "./ReviewsCRUD/UpdateReview";
@@ -13,6 +14,7 @@ const Reviews = () => {
           <GetReviewById />
           <CreateReview />
           <UpdateReview />
+          <DeleteReview />
         </div>
       </div>
     </>
