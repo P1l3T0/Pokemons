@@ -7,8 +7,8 @@ import ResponseMessages from "../../Helpers/ResponseMessages";
 const GetReviewerById = () => {
   const [id, setId] = useState(0);
   const [error, setError] = useState(false);
-  const [initiallyClicked, setInitiallyClicked] = useState(false);
   const [reviewer, setReviewer] = useState<OwnerObject>();
+  const [initiallyClicked, setInitiallyClicked] = useState(false);
 
   const getReviewerByIdAsync = async () => {
     await axios

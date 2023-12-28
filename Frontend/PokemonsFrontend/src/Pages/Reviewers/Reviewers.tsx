@@ -1,3 +1,4 @@
+import CreateReviewer from "./ReviewersCRUD/CreateReviewer";
 import GetAllReviewers from "./ReviewersCRUD/GetAllReviewers";
 import GetReviewerById from "./ReviewersCRUD/GetReviewerByID";
 
@@ -9,6 +10,7 @@ const Reviewwers = () => {
           <h1>Reviewers</h1>
           <GetAllReviewers />
           <GetReviewerById />
+          <CreateReviewer />
         </div>
       </div>
     </>

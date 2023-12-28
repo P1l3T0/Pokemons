@@ -1,28 +1,28 @@
 import axios from "axios";
 import { useState } from "react";
-import { ownersEndPoint } from "../../../endpoints";
+import { reviewersEndPoint } from "../../../endpoints";
 import ResponseMessages from "../../Helpers/ResponseMessages";
 
-const CreateOwner = () => {
+const CreateReviewer = () => {
   const [error, setError] = useState(false);
+  const [reviewer, setReviewer] = useState<ReviewerObject>()
   const [initiallyClicked, setInitiallyClicked] = useState(false);
-  const [owner, setOwner] = useState<OwnerObject>()
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setOwner({
-      ...owner,
+    setReviewer({
+      ...reviewer,
       [e.target.name]: e.target.value,
     });
   };
 
-  const createOwnerAsync = async () => {
-    if (!owner?.firstName?.trim() || !owner?.lastName?.trim() || !owner?.gym?.trim()) {
+  const createReviewerAsync = async () => {
+    if (!reviewer?.firstName?.trim() || !reviewer?.lastName?.trim()) {
       setError(true);
       return;
     }
 
     await axios
-      .post(`${ownersEndPoint}`, owner)
+      .post(`${reviewersEndPoint}`, reviewer)
       .then(() => {
         setError(false);
         !initiallyClicked ? setInitiallyClicked(true) : "";
@@ -41,22 +41,16 @@ const CreateOwner = () => {
             type="text"
             name="firstName"
             onChange={onChange}
-            placeholder="Owner's first name goes here"
+            placeholder="Reviewer's first name"
           />
           <input
             type="text"
             name="lastName"
             onChange={onChange}
-            placeholder="Owner's last name goes here"
+            placeholder="Reviewer's last name"
           />
-          <input
-            type="text"
-            name="gym"
-            onChange={onChange}
-            placeholder="Owner's gym goes here"
-          />
-          <button className="post" onClick={createOwnerAsync}>
-            Create an owner
+          <button className="post" onClick={createReviewerAsync}>
+            Create a reviewer
           </button>
         </div>
 
@@ -64,11 +58,11 @@ const CreateOwner = () => {
           error={error}
           initiallyClicked={initiallyClicked}
           errorMessage="Invalid or duplicate value!"
-          successMessage={"Owner succesfully created!"}
+          successMessage={"Reviewer succesfully created!"}
         />
       </div>
     </>
   );
 };
 
-export default CreateOwner;
+export default CreateReviewer;
