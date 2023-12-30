@@ -8,6 +8,21 @@ const CreateReview = () => {
   const [review, setReview] = useState<ReviewObject>()
   const [initiallyClicked, setInitiallyClicked] = useState(false);
 
+  const [reviewerId, setReviewerId] = useState(0);
+  const [pokemonId, setPokemonId] = useState(0);
+
+  const onChangeReviewerId = (e: React.ChangeEvent<HTMLInputElement>) => {
+    var reviewIdNum = Number(e.target.value);
+
+    setReviewerId(reviewIdNum);
+  }
+
+  const onChangePokemonId = (e: React.ChangeEvent<HTMLInputElement>) => {
+    var pokemonIdNum = Number(e.target.value);
+
+    setPokemonId(pokemonIdNum);
+  }
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const trimmedValue = e.target.value.trim();
 
@@ -24,9 +39,10 @@ const CreateReview = () => {
     }
 
     await axios
-      .post(`${reviewsEndPoint}`, review)
+      .post(`${reviewsEndPoint}/?reviewerId=${reviewerId}&pokemonId=${pokemonId}`, review)
       .then(() => {
         setError(false);
+        console.log(review);
         !initiallyClicked ? setInitiallyClicked(true) : "";
       })
       .catch((err) => {
@@ -39,6 +55,20 @@ const CreateReview = () => {
     <>
       <div className="container">
         <div className="container-child-1">
+          <input
+            type="number"
+            min={1}
+            name="reviewerId"
+            onChange={onChangeReviewerId}
+            placeholder="Reviewer ID goes here"
+          />
+          <input
+            type="number"
+            min={1}
+            name="pokemonId"
+            onChange={onChangePokemonId}
+            placeholder="Pokemon ID goes here"
+          />
           <input
             type="text"
             name="title"
