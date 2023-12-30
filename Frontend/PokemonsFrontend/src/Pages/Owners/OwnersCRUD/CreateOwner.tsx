@@ -9,9 +9,11 @@ const CreateOwner = () => {
   const [initiallyClicked, setInitiallyClicked] = useState(false);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const trimmedValue = e.target.value.trim();
+
     setOwner({
       ...owner,
-      [e.target.name]: e.target.value,
+      [e.target.name]: trimmedValue,
     });
   };
 

@@ -10,13 +10,14 @@ const UpdateCategory = () => {
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const trimmedValue = e.target.value.trim();
+
     setCategory({
       ...category,
       [e.target.name]: trimmedValue
     })
   };
 
-  const updateCountryAsync = async () => {
+  const updateCategoryAsync = async () => {
     if (!category?.name?.trim()) {
       setError(true);
       return;
@@ -50,7 +51,7 @@ const UpdateCategory = () => {
             onChange={onChange}
             placeholder="Category name goes here"
           />
-          <button className="put" onClick={updateCountryAsync}>
+          <button className="put" onClick={updateCategoryAsync}>
             Update a category
           </button>
         </div>

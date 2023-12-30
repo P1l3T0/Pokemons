@@ -9,13 +9,15 @@ const CreateCategory = () => {
   const [category, setCategory] = useState<CategoryObject>();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const trimmedValue = e.target.value.trim();
+
     setCategory({
       ...category,
-      [e.target.name]: e.target.value,
+      [e.target.name]: trimmedValue,
     });
   };
 
-  const createCountryAsync = async () => {
+  const createCategoryAsync = async () => {
     if (!category?.name?.trim()) {
       setError(true);
       return;
@@ -43,7 +45,7 @@ const CreateCategory = () => {
             onChange={onChange}
             placeholder="Category name goes here"
           />
-          <button className="post" onClick={createCountryAsync}>
+          <button className="post" onClick={createCategoryAsync}>
             Create a category
           </button>
         </div>

@@ -8,7 +8,7 @@ const GetAllOwners = () => {
   const [owner, setOwner] = useState<OwnerObject[]>([]);
   const [initiallyClicked, setInitiallyClicked] = useState(false);
 
-  const getAllCountriesAsync = async () => {
+  const getAllOwnersAsync = async () => {
     await axios
       .get(ownersEndPoint)
       .then((res: AxiosResponse<OwnerObject[]>) => {
@@ -26,7 +26,7 @@ const GetAllOwners = () => {
     <>
       <div className="container">
         <div className="container-child-1">
-          <button className="get" onClick={getAllCountriesAsync}>
+          <button className="get" onClick={getAllOwnersAsync}>
             Get all Owners
           </button>
         </div>

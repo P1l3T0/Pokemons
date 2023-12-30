@@ -9,7 +9,7 @@ const DeleteReview = () => {
   const [error, setError] = useState(false);
   const [initiallyClicked, setInitiallyClicked] = useState(false);
 
-  const deleteOwnerAsync = async () => {
+  const deleteReviewAsync = async () => {
     await axios
       .delete(`${reviewsEndPoint}/${id}`)
       .then(() => {
@@ -29,7 +29,7 @@ const DeleteReview = () => {
           setId={setId}
           httpMethod={"delete"}
           buttonText={"Delete a review"}
-          onClick={deleteOwnerAsync}
+          onClick={deleteReviewAsync}
         />
 
         <ResponseMessages

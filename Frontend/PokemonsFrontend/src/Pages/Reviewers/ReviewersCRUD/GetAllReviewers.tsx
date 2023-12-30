@@ -8,7 +8,7 @@ const GetAllReviewers = () => {
   const [reviewer, setReviewer] = useState<ReviewerObject[]>([]);
   const [initiallyClicked, setInitiallyClicked] = useState(false);
 
-  const getAllCountriesAsync = async () => {
+  const getAllReviewersAsync = async () => {
     await axios
       .get(reviewersEndPoint)
       .then((res: AxiosResponse<ReviewerObject[]>) => {
@@ -27,7 +27,7 @@ const GetAllReviewers = () => {
     <>
       <div className="container">
         <div className="container-child-1">
-          <button className="get" onClick={getAllCountriesAsync}>
+          <button className="get" onClick={getAllReviewersAsync}>
             Get all Reviewers
           </button>
         </div>

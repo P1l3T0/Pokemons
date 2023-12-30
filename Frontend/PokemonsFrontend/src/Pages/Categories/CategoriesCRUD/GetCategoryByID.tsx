@@ -10,7 +10,7 @@ const GetCategoryById = () => {
   const [initiallyClicked, setInitiallyClicked] = useState(false);
   const [category, setCategory] = useState<CategoryObject>();
 
-  const getCountryByIdAsync = async () => {
+  const getCategoryByIdAsync = async () => {
     await axios
       .get(`${categoriesEndPoint}/${id}`)
       .then((res: AxiosResponse<CategoryObject>) => {
@@ -31,7 +31,7 @@ const GetCategoryById = () => {
           setId={setId}
           httpMethod={"get"}
           buttonText={"Get category by ID"}
-          onClick={getCountryByIdAsync}
+          onClick={getCategoryByIdAsync}
         />
 
         <ResponseMessages

@@ -9,9 +9,11 @@ const CreateCountry = () => {
   const [country, setCountry] = useState<CountryObject>();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const trimmedValue = e.target.value.trim();
+
     setCountry({
       ...country,
-      [e.target.name]: e.target.value,
+      [e.target.name]: trimmedValue,
     });
   };
 

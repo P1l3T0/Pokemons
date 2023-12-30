@@ -10,9 +10,10 @@ const UpdateCountry = () => {
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const trimmedValue = e.target.value.trim();
+
     setCountry({
       ...country,
-      [e.target.name]: trimmedValue
+      [e.target.name]: trimmedValue,
     })
   };
 

@@ -13,6 +13,7 @@ const GetAllCountries = () => {
       .get(countriesEndPoint)
       .then((res: AxiosResponse<CountryObject[]>) => {
         setCountry(res.data);
+        console.log(res.data);
         setError(false);
         !initiallyClicked ? setInitiallyClicked(true) : "";
       })

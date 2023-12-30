@@ -10,6 +10,7 @@ const UpdateReview = () => {
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const trimmedValue = e.target.value.trim();
+
     setReview({
       ...review,
       [e.target.name]: trimmedValue

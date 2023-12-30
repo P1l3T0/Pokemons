@@ -10,13 +10,14 @@ const UpdateOwner = () => {
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const trimmedValue = e.target.value.trim();
+
     setOwner({
       ...owner,
       [e.target.name]: trimmedValue
     })
   };
 
-  const updateCountryAsync = async () => {
+  const updateOwnerAsync = async () => {
     if (!owner?.firstName?.trim() || !owner?.lastName?.trim() || !owner?.gym?.trim()) {
       setError(true);
       return;
@@ -62,7 +63,7 @@ const UpdateOwner = () => {
             onChange={onChange}
             placeholder="Owner's gym goes here"
           />
-          <button className="put" onClick={updateCountryAsync}>
+          <button className="put" onClick={updateOwnerAsync}>
             Update an owner
           </button>
         </div>

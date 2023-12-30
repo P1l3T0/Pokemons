@@ -9,7 +9,7 @@ const DeleteCategory = () => {
   const [error, setError] = useState(false);
   const [initiallyClicked, setInitiallyClicked] = useState(false);
 
-  const deleteCountryAsync = async () => {
+  const deleteCategoryAsync = async () => {
     await axios
       .delete(`${categoriesEndPoint}/${id}`)
       .then(() => {
@@ -29,7 +29,7 @@ const DeleteCategory = () => {
           setId={setId}
           httpMethod={"delete"}
           buttonText={"Delete a category"}
-          onClick={deleteCountryAsync}
+          onClick={deleteCategoryAsync}
         />
 
         <ResponseMessages
