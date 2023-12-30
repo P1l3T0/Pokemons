@@ -11,41 +11,47 @@ const ResponseMessages: React.FC<CombinedMessagesProps> = ({
     const dataArray = Array.isArray(data) ? data : [data];
 
     return dataArray.map(item => {
-      if ('name' in item) {
-        return (
-          <tr key={item.id}>
-            <td>{item.name}</td>
-            <td>{item.id}</td>
-          </tr>
-        );
-      } else if ('gym' in item) {
-        return (
-          <tr key={item.id}>
-            <td>{item.firstName}</td>
-            <td>{item.lastName}</td>
-            <td>{item.id}</td>
-            <td>{item.gym}</td>
-          </tr>
-        );
-      }
-      else if ("firstName" in item) {
-        return (
-          <tr key={item.id}>
-            <td>{item.firstName}</td>
-            <td>{item.lastName}</td>
-            <td>{item.id}</td>
-          </tr>
-        );
-      }
-      else if ("title" in item) {
-        return (
-          <tr key={item.id}>
-            <td>{item.title}</td>
-            <td>{item.text}</td>
-            <td>{item.rating}</td>
-            <td>{item.id}</td>
-          </tr>
-        );
+      switch (item.type) {
+        case "Country":
+          return (
+            <tr key={item.id}>
+              <td>{item.name}</td>
+              <td>{item.id}</td>
+            </tr>
+          );
+        case "Category":
+          return (
+            <tr key={item.id}>
+              <td>{item.name}</td>
+              <td>{item.id}</td>
+            </tr>
+          );
+        case "Owner":
+          return (
+            <tr key={item.id}>
+              <td>{item.firstName}</td>
+              <td>{item.lastName}</td>
+              <td>{item.lastName}</td>
+              <td>{item.id}</td>
+            </tr>
+          );
+        case "Review":
+          return (
+            <tr key={item.id}>
+              <td>{item.title}</td>
+              <td>{item.text}</td>
+              <td>{item.rating}</td>
+              <td>{item.id}</td>
+            </tr>
+          );
+        case "Reviewer":
+          return (
+            <tr key={item.id}>
+              <td>{item.firstName}</td>
+              <td>{item.lastName}</td>
+              <td>{item.id}</td>
+            </tr>
+          );
       }
 
       return null;

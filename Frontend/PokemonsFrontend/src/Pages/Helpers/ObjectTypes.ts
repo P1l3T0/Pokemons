@@ -1,11 +1,13 @@
 type CountryObject = {
   id?: number;
   name?: string;
+  type?: "Country";
 };
 
 type CategoryObject = {
   id?: number,
   name?: string
+  type?: "Category"
 }
 
 type OwnerObject = {
@@ -13,12 +15,14 @@ type OwnerObject = {
   firstName?: string,
   lastName?: string,
   gym?: string
+  type?: "Owner"
 }
 
 type ReviewerObject = {
   id?: number,
   firstName?: string,
   lastName?: string,
+  type?: "Reviewer"
 }
 
 type ReviewObject = {
@@ -26,6 +30,7 @@ type ReviewObject = {
   title?: string,
   text?: string,
   rating?: number,
+  type?: "Review";
 }
 
 type BaseObject =
