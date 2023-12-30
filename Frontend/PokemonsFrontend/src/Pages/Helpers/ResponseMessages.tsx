@@ -1,3 +1,4 @@
+import Data from "./Data";
 import { hasProperty } from "./ObjectBools";
 
 const ResponseMessages: React.FC<CombinedMessagesProps> = ({
@@ -7,57 +8,6 @@ const ResponseMessages: React.FC<CombinedMessagesProps> = ({
   initiallyClicked,
   data
 }) => {
-  const renderRows = (data: BaseObject) => {
-    const dataArray = Array.isArray(data) ? data : [data];
-
-    return dataArray.map(item => {
-      switch (item.type) {
-        case "Country":
-          return (
-            <tr key={item.id}>
-              <td>{item.name}</td>
-              <td>{item.id}</td>
-            </tr>
-          );
-        case "Category":
-          return (
-            <tr key={item.id}>
-              <td>{item.name}</td>
-              <td>{item.id}</td>
-            </tr>
-          );
-        case "Owner":
-          return (
-            <tr key={item.id}>
-              <td>{item.firstName}</td>
-              <td>{item.lastName}</td>
-              <td>{item.lastName}</td>
-              <td>{item.id}</td>
-            </tr>
-          );
-        case "Review":
-          return (
-            <tr key={item.id}>
-              <td>{item.title}</td>
-              <td>{item.text}</td>
-              <td>{item.rating}</td>
-              <td>{item.id}</td>
-            </tr>
-          );
-        case "Reviewer":
-          return (
-            <tr key={item.id}>
-              <td>{item.firstName}</td>
-              <td>{item.lastName}</td>
-              <td>{item.id}</td>
-            </tr>
-          );
-      }
-
-      return null;
-    });
-  };
-
   return (
     <div className="container-child-2">
       {error ? (
@@ -84,7 +34,7 @@ const ResponseMessages: React.FC<CombinedMessagesProps> = ({
               </tr>
             </thead>
             <tbody>
-              {renderRows(data)}
+              <Data data={data} />
             </tbody>
           </table>
         ) : (
