@@ -2,7 +2,7 @@ type DataIDProps = {
   httpMethod: string,
   buttonText: string,
   setId: React.Dispatch<React.SetStateAction<number>>,
-  onClick: React.MouseEventHandler<HTMLButtonElement> | undefined
+  onClick: React.MouseEventHandler<HTMLButtonElement>
 }
 
 const GetDataByID: React.FC<DataIDProps> = ({ setId, httpMethod, onClick, buttonText }) => {

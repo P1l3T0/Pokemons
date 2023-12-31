@@ -40,7 +40,13 @@ type PokemonObject = {
   type?: "Pokemon"
 }
 
+type Rating = {
+  rating?: number,
+  type?: "Rating"
+}
+
 type BaseObject =
+  Rating |
   OwnerObject | OwnerObject[] |
   ReviewObject | ReviewObject[] |
   CountryObject | CountryObject[] |

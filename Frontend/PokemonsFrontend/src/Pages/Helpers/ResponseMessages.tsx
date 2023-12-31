@@ -28,6 +28,7 @@ const ResponseMessages: React.FC<CombinedMessagesProps> = ({
                 {hasProperty(data, "firstName") && <th>First Name</th>}
                 {hasProperty(data, "firstName") && <th>Last Name</th>}
 
+                {hasProperty(data, "rating") && <th>Rating</th>}
                 <th>ID</th>
 
                 {hasProperty(data, "gym") && <th>Gym</th>}

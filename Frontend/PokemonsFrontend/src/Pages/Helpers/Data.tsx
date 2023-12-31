@@ -24,6 +24,12 @@ const Data = ({ data }: { data: BaseObject }) => {
             <td>{formatDateManually(item.birthDate)}</td>
           </tr>
         );
+      case "Rating":
+        return (
+          <tr key={1}>
+            <td>{item.rating}</td>
+          </tr>
+        );
       case "Category":
         return (
           <tr key={item.id}>
