@@ -1,6 +1,12 @@
 const Data = ({ data }: { data: BaseObject }) => {
   const dataArray = Array.isArray(data) ? data : [data];
 
+  const formatDateManually = (dateString: string): string => {
+    const date = new Date(dateString).toLocaleDateString("en-GB");
+
+    return date;
+  }
+
   return dataArray.map(item => {
     switch (item.type) {
       case "Country":
@@ -8,6 +14,14 @@ const Data = ({ data }: { data: BaseObject }) => {
           <tr key={item.id}>
             <td>{item.name}</td>
             <td>{item.id}</td>
+          </tr>
+        );
+      case "Pokemon":
+        return (
+          <tr key={item.id}>
+            <td>{item.name}</td>
+            <td>{item.id}</td>
+            <td>{formatDateManually(item.birthDate)}</td>
           </tr>
         );
       case "Category":

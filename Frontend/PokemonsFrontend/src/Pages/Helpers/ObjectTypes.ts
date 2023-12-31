@@ -33,10 +33,18 @@ type ReviewObject = {
   type?: "Review";
 }
 
+type PokemonObject = {
+  id?: number,
+  name?: string,
+  birthDate: string,
+  type?: "Pokemon"
+}
+
 type BaseObject =
   OwnerObject | OwnerObject[] |
   ReviewObject | ReviewObject[] |
   CountryObject | CountryObject[] |
+  PokemonObject | PokemonObject[] |
   CategoryObject | CategoryObject[] |
   ReviewerObject | ReviewerObject[];
 
