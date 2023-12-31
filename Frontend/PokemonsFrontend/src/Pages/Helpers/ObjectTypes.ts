@@ -36,7 +36,7 @@ type ReviewObject = {
 type PokemonObject = {
   id?: number,
   name?: string,
-  birthDate: string,
+  birthDate?: string,
   type?: "Pokemon"
 }
 
