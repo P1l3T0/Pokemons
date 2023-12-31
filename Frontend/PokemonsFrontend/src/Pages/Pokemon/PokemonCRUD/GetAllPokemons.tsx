@@ -12,7 +12,6 @@ const GetAllPokemon = () => {
     await axios
       .get(pokemonEndPoint)
       .then((res: AxiosResponse<PokemonObject[]>) => {
-        console.log(res.data);
         setPokemon(res.data);
         setError(false);
         !initiallyClicked ? setInitiallyClicked(true) : "";

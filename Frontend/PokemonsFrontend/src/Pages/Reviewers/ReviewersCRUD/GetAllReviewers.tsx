@@ -12,7 +12,6 @@ const GetAllReviewers = () => {
     await axios
       .get(reviewersEndPoint)
       .then((res: AxiosResponse<ReviewerObject[]>) => {
-        console.log(res.data);
         setReviewer(res.data);
         setError(false);
         !initiallyClicked ? setInitiallyClicked(true) : "";
