@@ -4,3 +4,9 @@ export const hasProperty = (data: BaseObject, property: string) => {
   }
   return property in data;
 };
+
+export const stringToDate = (dateString: string): string => {
+  const date = new Date(dateString).toLocaleDateString("en-GB");
+
+  return date;
+}

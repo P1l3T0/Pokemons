@@ -1,11 +1,7 @@
+import { stringToDate } from "./ObjectBools";
+
 const Data = ({ data }: { data: BaseObject }) => {
   const dataArray = Array.isArray(data) ? data : [data];
-
-  const formatDateManually = (dateString: string): string => {
-    const date = new Date(dateString).toLocaleDateString("en-GB");
-
-    return date;
-  }
 
   return dataArray.map(item => {
     switch (item.type) {
@@ -21,7 +17,7 @@ const Data = ({ data }: { data: BaseObject }) => {
           <tr key={item.id}>
             <td>{item.name}</td>
             <td>{item.id}</td>
-            <td>{formatDateManually(item.birthDate)}</td>
+            <td>{stringToDate(item.birthDate!)}</td>
           </tr>
         );
       case "Rating":
