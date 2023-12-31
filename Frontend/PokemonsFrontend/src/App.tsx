@@ -12,6 +12,8 @@ function App() {
         <Countries />
         <Categories />
         <Reviewwers />
+      </div>
+      <div className='app-container'>
         <Reviews />
         <Owners />
         <Pokeomons />

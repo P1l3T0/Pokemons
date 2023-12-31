@@ -1,4 +1,5 @@
 import GetAllPokemon from "./PokemonCRUD/GetAllPokemons";
+import GetPokemonById from "./PokemonCRUD/GetPokemonById";
 
 const Pokeomons = () => {
   return (
@@ -7,6 +8,7 @@ const Pokeomons = () => {
         <div>
           <h1>Pokemons</h1>
           <GetAllPokemon />
+          <GetPokemonById />
         </div>
       </div>
     </>
